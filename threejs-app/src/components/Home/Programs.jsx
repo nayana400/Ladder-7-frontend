@@ -48,13 +48,13 @@ function Programs() {
                     {PROGRAMS.map((program, index) => (
                         <div
                             key={index}
-                            className="group relative rounded-2xl overflow-hidden aspect-[3/5] cursor-pointer shadow-2xl border border-white/5 transition-transform duration-500 hover:scale-[1.03] hover:z-20"
+                            className="group relative rounded-2xl overflow-hidden aspect-[3/4.5] cursor-pointer shadow-2xl border border-white/5 transition-transform duration-500 hover:scale-[1.03] hover:z-20"
                         >
-                            {/* Background Image with Zoom */}
+                            {/* Background Image */}
                             <img
                                 src={program.image}
                                 alt={program.title}
-                                className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                                className="absolute inset-0 w-full h-full object-contain object-center"
                             />
 
                             {/* Gradient Overlay for Readability */}
