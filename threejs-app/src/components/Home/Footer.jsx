@@ -1,6 +1,6 @@
 function Footer({ hideSocials }) {
   return (
-    <footer className="bg-black text-white py-12 px-6 relative border-t border-gray-800">
+    <footer className="bg-[#112240] text-white py-12 px-6 relative border-t border-gray-800">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
         {/* Left: Location */}
         <div className="md:col-span-1">

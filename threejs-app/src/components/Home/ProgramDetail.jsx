@@ -59,7 +59,7 @@ function ProgramDetail() {
 
     if (!program) {
         return (
-            <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6 text-center">
+            <div className="min-h-screen bg-[#112240] text-white flex flex-col items-center justify-center p-6 text-center">
                 <h1 className="text-4xl font-bold mb-4">Program Not Found</h1>
                 <Link to="/" className="text-purple-400 hover:underline">Back to Home</Link>
             </div>
@@ -67,12 +67,12 @@ function ProgramDetail() {
     }
 
     return (
-        <div className="min-h-screen bg-black text-white">
+        <div className="min-h-screen bg-[#112240] text-white">
             <Navbar />
             {/* Header Image */}
             <div className="relative h-[40vh] md:h-[60vh] overflow-hidden">
                 <img src={program.image} alt={program.title} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#112240] via-[#112240]/40 to-transparent"></div>
                 <div className="absolute bottom-12 left-6 md:left-24 max-w-4xl">
                     <h1 className="text-5xl md:text-7xl font-black mb-4 uppercase tracking-tighter">{program.title}</h1>
                     <p className="text-purple-400 text-xl md:text-2xl font-semibold italic">{program.subtitle}</p>

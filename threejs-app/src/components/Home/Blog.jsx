@@ -128,7 +128,7 @@ const Blog = () => {
     ];
 
     return (
-        <div className="bg-black min-h-screen text-white relative overflow-hidden">
+        <div className="bg-[#112240] min-h-screen text-white relative overflow-hidden">
             <div className="relative z-10">
                 <Navbar />
                 <main className="max-w-7xl mx-auto px-6 pt-40 pb-20">

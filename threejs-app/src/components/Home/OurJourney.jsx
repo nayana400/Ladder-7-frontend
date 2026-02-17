@@ -84,7 +84,7 @@ const JOURNEY_STEPS = [
 
 function OurJourney() {
     return (
-        <section className="py-12 bg-black text-white px-6 overflow-hidden">
+        <section className="py-12 bg-[#112240] text-white px-6 overflow-hidden">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-24 px-4">
                     <h2 className="text-4xl md:text-5xl font-black mb-6 mt-0">Our Journey</h2>

@@ -9,7 +9,7 @@ import Footer from "./Footer";
 
 const Home = () => {
     return (
-        <div className="bg-black min-h-screen">
+        <div className="bg-[#1a365d] min-h-screen">
             <Navbar />
             <Hero />
             <Programs />

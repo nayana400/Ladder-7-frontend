@@ -27,7 +27,7 @@ function OurPrograms() {
     ];
 
     return (
-        <section className="pt-0 pb-16 bg-black text-white px-6 md:px-12 lg:px-36">
+        <section className="pt-0 pb-16 bg-[#1a365d] text-white px-6 md:px-12 lg:px-36">
             <div className="max-w-full mx-auto">
                 <div className="text-center mb-10">
                     <h2 className="text-xl md:text-4xl font-black mb-6">Our Programs</h2>
@@ -38,7 +38,7 @@ function OurPrograms() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {programs.map((program, idx) => (
-                        <div key={idx} className="bg-blue-600 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl hover:scale-[1.02] transition-transform duration-300">
+                        <div key={idx} className="bg-black border border-white/10 rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl hover:scale-[1.02] transition-transform duration-300">
                             <div className="text-5xl mb-4">
                                 {program.icon}
                             </div>

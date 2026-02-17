@@ -8,7 +8,7 @@ const Advisor = () => {
     ];
 
     return (
-        <section className="bg-[#2d2387] text-white py-12 px-6 md:px-16 overflow-hidden">
+        <section className="bg-[#112240] text-white py-12 px-6 md:px-16 overflow-hidden">
             <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
                 {/* Text Content */}
                 <div className="flex-1 text-left">

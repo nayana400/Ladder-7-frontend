@@ -7,7 +7,7 @@ function Navbar() {
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
 
   return (
-    <nav className="bg-black text-white w-full z-50 fixed top-0 left-0 border-b border-gray-800">
+    <nav className="bg-[#1a365d] text-white w-full z-50 fixed top-0 left-0 border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center">
@@ -36,7 +36,7 @@ function Navbar() {
 
               {/* Dropdown Menu */}
               {dropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl py-3 z-50 animate-fadeIn overflow-hidden">
+                <div className="absolute top-full left-0 mt-2 w-56 bg-[#1a365d]/80 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl py-3 z-50 animate-fadeIn overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 pointer-events-none"></div>
                   <Link to="/program/1" className="block px-5 py-2.5 hover:bg-white/10 text-sm transition-colors relative z-10" onClick={() => setDropdownOpen(false)}>My Ladder</Link>
                   <Link to="/program/2" className="block px-5 py-2.5 hover:bg-white/10 text-sm transition-colors relative z-10" onClick={() => setDropdownOpen(false)}>Mind Gym</Link>
@@ -71,7 +71,7 @@ function Navbar() {
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden bg-black border-t border-gray-800 px-6 py-4 space-y-4 shadow-xl relative z-50">
+        <div className="md:hidden bg-[#1a365d] border-t border-gray-800 px-6 py-4 space-y-4 shadow-xl relative z-50">
           <a href="#who-we-are" className="block hover:text-gray-400 py-2" onClick={() => setOpen(false)}>Who we are</a>
 
           <div className="space-y-2">

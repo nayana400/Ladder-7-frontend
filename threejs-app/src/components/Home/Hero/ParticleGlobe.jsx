@@ -40,7 +40,7 @@ const ParticleSphere = ({ count = 12000 }) => {
             <PointMaterial
                 transparent
                 color="#ffffff"
-                size={0.02}
+                size={0.035}
                 sizeAttenuation={true}
                 depthWrite={false}
                 opacity={0.9}

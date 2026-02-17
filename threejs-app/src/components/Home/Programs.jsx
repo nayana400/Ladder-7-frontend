@@ -41,7 +41,7 @@ const PROGRAMS = [
 
 function Programs() {
     return (
-        <section id="programs" className="py-12 bg-black text-white px-6 md:px-16">
+        <section id="programs" className="py-12 bg-[#1a365d] text-white px-6 md:px-16">
             <div className="max-w-7xl mx-auto">
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -84,7 +84,7 @@ function Programs() {
                                     <div className="flex justify-center">
                                         <Link
                                             to={`/program/${program.id}`}
-                                            className="inline-block px-20 py-3 rounded bg-black text-white font-bold text-sm hover:bg-white hover:text-blue-900 transition-all duration-300 rounded no-underline whitespace-nowrap"
+                                            className="inline-block px-20 py-3 rounded bg-[#1a365d] text-white font-bold text-sm hover:bg-white hover:text-blue-900 transition-all duration-300 rounded no-underline whitespace-nowrap"
                                         >
                                             Learn more
                                         </Link>
