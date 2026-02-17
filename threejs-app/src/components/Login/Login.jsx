@@ -80,7 +80,7 @@ const Login = () => {
                                 <div>
                                     <button
                                         type="submit"
-                                        className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 transition-colors duration-200 uppercase tracking-wider"
+                                        className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-[#1a365d] hover:bg-[#1a365d]/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 transition-colors duration-200 uppercase tracking-wider"
                                     >
                                         Log In
                                     </button>
@@ -90,7 +90,7 @@ const Login = () => {
 
                         {/* Right Side of Card - Black Info */}
                         <div
-                            className="md:w-2/5 bg-black text-white flex flex-col justify-center items-center p-8 relative"
+                            className="md:w-2/5 bg-[#1a365d] text-white flex flex-col justify-center items-center p-8 relative"
                             style={{ borderTopLeftRadius: '100px', borderBottomLeftRadius: '50px' }}
                         >
                             <div className="z-10 text-center space-y-6">
