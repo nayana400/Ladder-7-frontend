@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -27,7 +28,7 @@ function Navbar() {
               </button>
               {/* Dropdown would go here */}
             </div>
-            <a href="#what-we-think" className="hover:text-gray-400 transition">What we think</a>
+            <Link to="/blog" className="hover:text-gray-400 transition">What we think</Link>
             <a href="#careers" className="hover:text-gray-400 transition">Careers</a>
           </div>
 
@@ -56,7 +57,7 @@ function Navbar() {
         <div className="md:hidden bg-black border-t border-gray-800 px-6 py-4 space-y-4 shadow-xl relative z-50">
           <a href="#who-we-are" className="block hover:text-gray-400">Who we are</a>
           <a href="#what-we-do" className="block hover:text-gray-400">What we do</a>
-          <a href="#what-we-think" className="block hover:text-gray-400">What we think</a>
+          <Link to="/blog" className="block hover:text-gray-400">What we think</Link>
           <a href="#careers" className="block hover:text-gray-400">Careers</a>
           <div className="pt-4 flex flex-col space-y-3">
             <button className="w-full px-5 py-2 rounded-full border border-gray-600 hover:border-white transition text-sm">
