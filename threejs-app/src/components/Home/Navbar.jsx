@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
 function Navbar() {
   const [open, setOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
 
   return (
     <nav className="bg-black text-white w-full z-50 fixed top-0 left-0 border-b border-gray-800">
@@ -34,14 +36,16 @@ function Navbar() {
 
               {/* Dropdown Menu */}
               {dropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50 animate-fadeIn">
-                  <a href="#program1" className="block px-4 py-2 hover:bg-gray-100 text-sm">Program 1</a>
-                  <a href="#program2" className="block px-4 py-2 hover:bg-gray-100 text-sm">Program 2</a>
-                  <a href="#program3" className="block px-4 py-2 hover:bg-gray-100 text-sm">Program 3</a>
+                <div className="absolute top-full left-0 mt-2 w-56 bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl py-3 z-50 animate-fadeIn overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 pointer-events-none"></div>
+                  <Link to="/program/1" className="block px-5 py-2.5 hover:bg-white/10 text-sm transition-colors relative z-10" onClick={() => setDropdownOpen(false)}>My Ladder</Link>
+                  <Link to="/program/2" className="block px-5 py-2.5 hover:bg-white/10 text-sm transition-colors relative z-10" onClick={() => setDropdownOpen(false)}>Mind Gym</Link>
+                  <Link to="/program/3" className="block px-5 py-2.5 hover:bg-white/10 text-sm transition-colors relative z-10" onClick={() => setDropdownOpen(false)}>Mirror Me</Link>
+                  <Link to="/program/4" className="block px-5 py-2.5 hover:bg-white/10 text-sm transition-colors relative z-10" onClick={() => setDropdownOpen(false)}>Fill Dots</Link>
                 </div>
               )}
             </div>
-            <a href="#what-we-think" className="hover:text-gray-400 transition">What we think</a>
+            <Link to="/blog" className="hover:text-gray-400 transition">What we think</Link>
             <a href="#careers" className="hover:text-gray-400 transition">Careers</a>
           </div>
 
@@ -68,9 +72,30 @@ function Navbar() {
       {/* Mobile Menu */}
       {open && (
         <div className="md:hidden bg-black border-t border-gray-800 px-6 py-4 space-y-4 shadow-xl relative z-50">
-          <a href="#who-we-are" className="block hover:text-gray-400">Who we are</a>
-          <a href="#what-we-do" className="block hover:text-gray-400">What we do</a>
-          <a href="#what-we-think" className="block hover:text-gray-400">What we think</a>
+          <a href="#who-we-are" className="block hover:text-gray-400 py-2" onClick={() => setOpen(false)}>Who we are</a>
+
+          <div className="space-y-2">
+            <button
+              onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+              className="flex items-center justify-between w-full hover:text-gray-400 py-2 focus:outline-none"
+            >
+              What we do
+              <svg className={`ml-1 w-4 h-4 transition-transform duration-200 ${mobileDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+
+            {mobileDropdownOpen && (
+              <div className="pl-4 space-y-2 border-l border-gray-800 ml-1">
+                <Link to="/program/1" className="block hover:text-gray-400 py-1 text-sm text-gray-400" onClick={() => { setOpen(false); setMobileDropdownOpen(false); }}>My Ladder</Link>
+                <Link to="/program/2" className="block hover:text-gray-400 py-1 text-sm text-gray-400" onClick={() => { setOpen(false); setMobileDropdownOpen(false); }}>Mind Gym</Link>
+                <Link to="/program/3" className="block hover:text-gray-400 py-1 text-sm text-gray-400" onClick={() => { setOpen(false); setMobileDropdownOpen(false); }}>Mirror Me</Link>
+                <Link to="/program/4" className="block hover:text-gray-400 py-1 text-sm text-gray-400" onClick={() => { setOpen(false); setMobileDropdownOpen(false); }}>Fill Dots</Link>
+              </div>
+            )}
+          </div>
+
+          <Link to="/blog" className="block hover:text-gray-400 py-2" onClick={() => setOpen(false)}>What we think</Link>
           <a href="#careers" className="block hover:text-gray-400">Careers</a>
           <div className="pt-4 flex flex-col space-y-3">
             <Link to="/login" className="w-full text-center block px-5 py-2 rounded-full border border-gray-600 hover:border-white transition text-sm">

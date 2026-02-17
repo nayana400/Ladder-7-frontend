@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import ParticleGlobe from "./ParticleGlobe";
 
 const SLIDES = [
   {
@@ -43,6 +44,7 @@ function Hero() {
 
   return (
     <section className="h-[90vh] bg-black text-white flex flex-col justify-center px-6 md:px-16 relative overflow-hidden pt-20">
+      <ParticleGlobe />
       {/* Background Gradient */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-purple-900/10 to-transparent pointer-events-none"></div>
 
