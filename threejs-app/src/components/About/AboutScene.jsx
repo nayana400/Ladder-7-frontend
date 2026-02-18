@@ -28,13 +28,13 @@ const PencilModel = ({ pencilRef }) => {
             <group rotation={[0, 0, -Math.PI / 4]}>
                 {/* Pencil Body - Hexagonal */}
                 <mesh position={[0, 1.5, 0]}>
-                    <cylinderGeometry args={[0.1, 0.1, 3, 6]} />
-                    <meshStandardMaterial color="#007bff" roughness={0.3} metalness={0.2} />
+                    <cylinderGeometry args={[0.11, 0.11, 3, 6]} />
+                    <meshStandardMaterial color="#007bff" roughness={0.2} metalness={0.1} />
                 </mesh>
                 {/* Pencil Tip (Wood) */}
                 <mesh position={[0, -0.2, 0]}>
-                    <coneGeometry args={[0.1, 0.4, 6]} />
-                    <meshStandardMaterial color="#e5c07b" />
+                    <coneGeometry args={[0.11, 0.4, 6]} />
+                    <meshStandardMaterial color="#d4a76a" roughness={0.8} />
                 </mesh>
                 {/* Lead Tip */}
                 <mesh position={[0, -0.4, 0]}>
@@ -53,7 +53,7 @@ const Scene = () => {
 
     const text = "About Us";
     const startX = -2.5;
-    const endX = 2.8;
+    const endX = 3.2;
 
     const lineStart = new THREE.Vector3(-3.2, -0.8, 0);
     const lineEnd = new THREE.Vector3(3.8, -0.8, 0);
@@ -71,14 +71,14 @@ const Scene = () => {
             setWritingProgress((prev) => {
                 const next = prev + delta * 0.25;
                 if (next >= 1) {
-                    setWritingDone(true); // Immediate transition
+                    setWritingDone(true);
                     return 1;
                 }
                 return next;
             });
 
             const targetX = THREE.MathUtils.lerp(startX, endX, writingProgress);
-            const scribbleY = Math.sin(t * 20) * 0.05;
+            const scribbleY = Math.sin(t * 22) * 0.04;
 
             pencilRef.current.position.x = targetX;
             pencilRef.current.position.y = 0.5 + scribbleY;
@@ -86,15 +86,14 @@ const Scene = () => {
         } else if (lineProgress < 1) {
             setLineProgress((prev) => Math.min(prev + delta * 0.8, 1));
             const currentLinePos = new THREE.Vector3().lerpVectors(lineStart, lineEnd, lineProgress);
-            // DIRECT assignment, no lerp lag
             pencilRef.current.position.copy(currentLinePos);
-            pencilRef.current.position.y += 0.1; // Slight offset so tip touches line
+            pencilRef.current.position.y += 0.15; // Gap for the tip
             pencilRef.current.position.z = 0.2;
         }
     });
 
     return (
-        <group rotation={[0.4, -0.3, 0.1]}> {/* Restored Tilt to match pic exactly */}
+        <group rotation={[0.4, -0.3, 0]} position={[0, -0.5, 0]}> {/* Perfected Tilt and vertical center */}
             <PerspectiveCamera makeDefault position={[0, 0, 8]} />
             <ambientLight intensity={1.5} />
             <pointLight position={[10, 10, 10]} intensity={2.5} />
@@ -102,7 +101,7 @@ const Scene = () => {
             <group position={[0, 0, 0]}>
                 <Text
                     fontSize={1.4}
-                    color="#202020"
+                    color="#2d2d2d"
                     fontWeight="900"
                     anchorX="left"
                     anchorY="middle"
@@ -120,8 +119,8 @@ const Scene = () => {
                 <ContactShadows
                     position={[0, -1.8, 0]}
                     opacity={0.3}
-                    scale={10}
-                    blur={3}
+                    scale={12}
+                    blur={2.5}
                 />
             </group>
         </group>
