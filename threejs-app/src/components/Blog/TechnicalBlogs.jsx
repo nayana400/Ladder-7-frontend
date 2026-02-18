@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import BlogScene from "../Blog/BlogScene";
-import { BlogSection } from "../Blog/Blog";
-import { technicalBlogs } from "../Blog/BlogData";
+import Navbar from "../Home/Navbar";
+import Footer from "../Home/Footer";
+import BlogScene from "./BlogScene";
+import { BlogSection } from "./Blog";
+import { technicalBlogs } from "./BlogData";
 
 const TechnicalBlogs = () => {
     return (
