@@ -1,20 +1,50 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleCareersClick = (e) => {
+    if (location.pathname === "/careers") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setOpen(false);
+    }
+  };
+
+  const handleHashClick = (e, hash) => {
+    if (location.pathname !== "/") {
+      e.preventDefault();
+      navigate("/" + hash);
+      setOpen(false);
+    } else {
+      setOpen(false);
+    }
+  };
 
   return (
     <nav className="bg-[#1a365d] text-white w-full z-50 fixed top-0 left-0 border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
-        <Link to="/" className="flex items-center">
-          {/* Placeholder for Ladder7 Logo */}
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-md flex items-center justify-center font-bold text-xl italic mr-2">
-            L7
-          </div>
+        <Link to="/" className="flex items-center" onClick={() => window.scrollTo(0, 0)}>
+          <svg width="40" height="40" viewBox="0 0 100 100" className="mr-2">
+            <defs>
+              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#b026ff" />
+                <stop offset="50%" stopColor="#0047ff" />
+                <stop offset="100%" stopColor="#00c2ff" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M 25 0 L 100 0 L 75 100 L 0 100 Z M 50 20 L 90 20 L 70 50 L 85 50 L 55 80 L 10 80 L 30 50 L 15 50 Z"
+              fill="url(#logoGradient)"
+              fillRule="evenodd"
+            />
+          </svg>
           <span className="text-xl font-bold tracking-tight">Ladder7</span>
         </Link>
 
@@ -22,7 +52,7 @@ function Navbar() {
         <div className="flex items-center gap-8">
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8 text-sm font-medium">
-            <a href="#who-we-are" className="hover:text-gray-400 transition">Who we are</a>
+            <Link to="/about" className="hover:text-gray-400 transition">Who we are</Link>
             <div className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -46,7 +76,7 @@ function Navbar() {
               )}
             </div>
             <Link to="/blog" className="hover:text-gray-400 transition">What we think</Link>
-            <a href="#careers" className="hover:text-gray-400 transition">Careers</a>
+            <Link to="/careers" onClick={handleCareersClick} className="hover:text-gray-400 transition">Careers</Link>
           </div>
 
           {/* Action Buttons */}
@@ -54,7 +84,7 @@ function Navbar() {
             <Link to="/login" className="px-5 py-2 rounded-md border border-white text-sm font-medium">
               Login
             </Link>
-            <Link to="/signup" className="px-5 py-2 rounded-md border border-white  text-sm font-medium">
+            <Link to="/signup" className="px-5 py-2 rounded-md border border-white text-sm font-medium">
               Signup
             </Link>
           </div>
@@ -72,7 +102,7 @@ function Navbar() {
       {/* Mobile Menu */}
       {open && (
         <div className="md:hidden bg-[#1a365d] border-t border-gray-800 px-6 py-4 space-y-4 shadow-xl relative z-50">
-          <a href="#who-we-are" className="block hover:text-gray-400 py-2" onClick={() => setOpen(false)}>Who we are</a>
+          <Link to="/about" className="block hover:text-gray-400 py-2" onClick={() => setOpen(false)}>Who we are</Link>
 
           <div className="space-y-2">
             <button
@@ -96,12 +126,12 @@ function Navbar() {
           </div>
 
           <Link to="/blog" className="block hover:text-gray-400 py-2" onClick={() => setOpen(false)}>What we think</Link>
-          <a href="#careers" className="block hover:text-gray-400">Careers</a>
+          <Link to="/careers" className="block hover:text-gray-400 py-2" onClick={(e) => { handleCareersClick(e); setOpen(false); }}>Careers</Link>
           <div className="pt-4 flex flex-col space-y-3">
-            <Link to="/login" className="w-full text-center block px-5 py-2 rounded-full border border-gray-600 hover:border-white transition text-sm">
+            <Link to="/login" className="w-full text-center block px-5 py-2 rounded-full border border-gray-600 hover:border-white transition text-sm" onClick={() => setOpen(false)}>
               Login
             </Link>
-            <Link to="/signup" className="w-full text-center block px-5 py-2 rounded-full border border-gray-600 hover:border-white transition text-sm">
+            <Link to="/signup" className="w-full text-center block px-5 py-2 rounded-full border border-gray-600 hover:border-white transition text-sm" onClick={() => setOpen(false)}>
               Signup
             </Link>
           </div>

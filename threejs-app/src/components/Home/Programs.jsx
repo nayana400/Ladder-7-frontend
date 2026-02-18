@@ -58,7 +58,7 @@ function Programs() {
                             />
 
                             {/* Gradient Overlay for Readability */}
-                            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/90 group-hover:bg-blue-600/60 group-hover:from-blue-900/80 group-hover:to-blue-900/90 transition-all duration-500"></div>
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/90 group-hover:bg-black/80 group-hover:from-black/90 group-hover:to-black transition-all duration-500"></div>
 
                             {/* Content Overlay */}
                             <div className="absolute inset-0 p-8 flex flex-col h-full z-10">

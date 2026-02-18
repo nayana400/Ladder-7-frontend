@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Footer({ hideSocials }) {
   return (
     <footer className="bg-[#112240] text-white py-12 px-6 relative border-t border-gray-800">
@@ -20,20 +22,25 @@ function Footer({ hideSocials }) {
         </div>
 
         {/* Center: Job Listings (2 columns) */}
-        <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm text-gray-300">
-          <div className="space-y-3">
-            <a href="#" className="block hover:text-blue-500 hover:underline transition">Junior Mobile App Developer</a>
-            <a href="#" className="block hover:text-blue-500 hover:underline transition">Junior Web Developer</a>
-            <a href="#" className="block hover:text-blue-500 hover:underline transition">Digital Marketing Associate</a>
-            <a href="#" className="block hover:text-blue-500 hover:underline transition">Junior Data Analyst</a>
-            <a href="#" className="block hover:text-blue-500 hover:underline transition">Salesforce Developer</a>
-          </div>
-          <div className="space-y-3">
-            <a href="#" className="block hover:text-blue-500 hover:underline transition">Junior Data Scientist</a>
-            <a href="#" className="block hover:text-blue-500 hover:underline transition">Junior CyberSecurity Analyst</a>
-            <a href="#" className="block hover:text-blue-500 hover:underline transition">Adobe Experience Manager (AEM) Author</a>
-            <a href="#" className="block hover:text-blue-500 hover:underline transition">Junior HR Talent Manager</a>
-            <a href="#" className="block hover:text-blue-500 hover:underline transition">UI UX Architect</a>
+        <div className="md:col-span-2">
+          <h3 className="text-xl font-bold mb-4">
+            <Link to="/careers" className="hover:text-blue-400 transition">Careers</Link>
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm text-gray-300">
+            <div className="space-y-3">
+              <Link to="/careers" className="block hover:text-blue-500 hover:underline transition">Junior Mobile App Developer</Link>
+              <Link to="/careers" className="block hover:text-blue-500 hover:underline transition">Junior Web Developer</Link>
+              <Link to="/careers" className="block hover:text-blue-500 hover:underline transition">Digital Marketing Associate</Link>
+              <Link to="/careers" className="block hover:text-blue-500 hover:underline transition">Junior Data Analyst</Link>
+              <Link to="/careers" className="block hover:text-blue-500 hover:underline transition">Salesforce Developer</Link>
+            </div>
+            <div className="space-y-3">
+              <Link to="/careers" className="block hover:text-blue-500 hover:underline transition">Junior Data Scientist</Link>
+              <Link to="/careers" className="block hover:text-blue-500 hover:underline transition">Junior CyberSecurity Analyst</Link>
+              <Link to="/careers" className="block hover:text-blue-500 hover:underline transition">Adobe Experience Manager (AEM) Author</Link>
+              <Link to="/careers" className="block hover:text-blue-500 hover:underline transition">Junior HR Talent Manager</Link>
+              <Link to="/careers" className="block hover:text-blue-500 hover:underline transition">UI UX Architect</Link>
+            </div>
           </div>
         </div>
 
