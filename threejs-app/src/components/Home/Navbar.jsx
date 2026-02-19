@@ -1,5 +1,9 @@
 import { useState } from "react";
+<<<<<<< HEAD
 import { Link, useLocation, useNavigate } from "react-router-dom";
+=======
+import { Link } from "react-router-dom";
+>>>>>>> adarsh-feature
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -76,7 +80,11 @@ function Navbar() {
               )}
             </div>
             <Link to="/blog" className="hover:text-gray-400 transition">What we think</Link>
+<<<<<<< HEAD
             <Link to="/careers" onClick={handleCareersClick} className="hover:text-gray-400 transition">Careers</Link>
+=======
+            <a href="#careers" className="hover:text-gray-400 transition">Careers</a>
+>>>>>>> adarsh-feature
           </div>
 
           {/* Action Buttons */}
@@ -101,6 +109,7 @@ function Navbar() {
 
       {/* Mobile Menu */}
       {open && (
+<<<<<<< HEAD
         <div className="md:hidden bg-[#1a365d] border-t border-gray-800 px-6 py-4 space-y-4 shadow-xl relative z-50">
           <Link to="/about" className="block hover:text-gray-400 py-2" onClick={() => setOpen(false)}>Who we are</Link>
 
@@ -127,6 +136,13 @@ function Navbar() {
 
           <Link to="/blog" className="block hover:text-gray-400 py-2" onClick={() => setOpen(false)}>What we think</Link>
           <Link to="/careers" className="block hover:text-gray-400 py-2" onClick={(e) => { handleCareersClick(e); setOpen(false); }}>Careers</Link>
+=======
+        <div className="md:hidden bg-black border-t border-gray-800 px-6 py-4 space-y-4 shadow-xl relative z-50">
+          <a href="#who-we-are" className="block hover:text-gray-400">Who we are</a>
+          <a href="#what-we-do" className="block hover:text-gray-400">What we do</a>
+          <Link to="/blog" className="block hover:text-gray-400">What we think</Link>
+          <a href="#careers" className="block hover:text-gray-400">Careers</a>
+>>>>>>> adarsh-feature
           <div className="pt-4 flex flex-col space-y-3">
             <Link to="/login" className="w-full text-center block px-5 py-2 rounded-full border border-gray-600 hover:border-white transition text-sm" onClick={() => setOpen(false)}>
               Login
