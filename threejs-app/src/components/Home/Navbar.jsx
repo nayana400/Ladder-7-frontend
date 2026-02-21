@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import logo from "../../assets/Images/LADDER 7 LOGO.png";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -31,20 +32,7 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center" onClick={() => window.scrollTo(0, 0)}>
-          <svg width="40" height="40" viewBox="0 0 100 100" className="mr-2">
-            <defs>
-              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#b026ff" />
-                <stop offset="50%" stopColor="#0047ff" />
-                <stop offset="100%" stopColor="#00c2ff" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M 25 0 L 100 0 L 75 100 L 0 100 Z M 50 20 L 90 20 L 70 50 L 85 50 L 55 80 L 10 80 L 30 50 L 15 50 Z"
-              fill="url(#logoGradient)"
-              fillRule="evenodd"
-            />
-          </svg>
+          <img src={logo} alt="Ladder7 Logo" className="h-10 w-auto object-contain mr-2" />
           <span className="text-xl font-bold tracking-tight">Ladder7</span>
         </Link>
 
