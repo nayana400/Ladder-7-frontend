@@ -40,7 +40,7 @@ function Navbar() {
         <div className="flex items-center gap-8">
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8 text-sm font-medium">
-            <Link to="/about" className="hover:text-gray-400 transition">Who we are</Link>
+            <Link to="#about" className="hover:text-gray-400 transition">Who we are</Link>
             <div className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -90,7 +90,7 @@ function Navbar() {
       {/* Mobile Menu */}
       {open && (
         <div className="md:hidden bg-[#1a365d] border-t border-gray-800 px-6 py-4 space-y-4 shadow-xl relative z-50">
-          <Link to="/about" className="block hover:text-gray-400 py-2" onClick={() => setOpen(false)}>Who we are</Link>
+          <Link to="#about" className="block hover:text-gray-400 py-2" onClick={() => setOpen(false)}>Who we are</Link>
 
           <div className="space-y-2">
             <button
