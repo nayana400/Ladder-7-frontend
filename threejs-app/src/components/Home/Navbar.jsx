@@ -20,7 +20,7 @@ function Navbar() {
         <div className="flex items-center gap-8">
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8 text-sm font-medium">
-            <a href="#who-we-are" className="hover:text-gray-400 transition">Who we are</a>
+            <Link to="/about" className="hover:text-gray-400 transition">Who we are</Link>
             <div className="relative group">
               <button className="flex items-center hover:text-gray-400 transition">
                 What we do
@@ -55,7 +55,7 @@ function Navbar() {
       {/* Mobile Menu */}
       {open && (
         <div className="md:hidden bg-black border-t border-gray-800 px-6 py-4 space-y-4 shadow-xl relative z-50">
-          <a href="#who-we-are" className="block hover:text-gray-400">Who we are</a>
+          <Link to="/about" className="block hover:text-gray-400">Who we are</Link>
           <a href="#what-we-do" className="block hover:text-gray-400">What we do</a>
           <Link to="/blog" className="block hover:text-gray-400">What we think</Link>
           <a href="#careers" className="block hover:text-gray-400">Careers</a>

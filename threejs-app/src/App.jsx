@@ -5,6 +5,7 @@ import Blog from "./components/Blog/Blog";
 import TechnicalBlogs from "./components/Blog/TechnicalBlogs";
 import EventBlogs from "./components/Blog/EventBlogs";
 import BlogPostDetail from "./components/Blog/BlogPostDetail";
+import About from "./components/About/About";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/blog/technical" element={<TechnicalBlogs />} />
         <Route path="/blog/events" element={<EventBlogs />} />
         <Route path="/blog/post/:id" element={<BlogPostDetail />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </div>
   );

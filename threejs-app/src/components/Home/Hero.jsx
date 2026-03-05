@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 const SLIDES = [
   {
@@ -7,7 +8,8 @@ const SLIDES = [
     titleMid: "WELL-BEING-FOCUSED",
     titleBot: "CAREER!",
     description: "Design your well-being-focused career ladder with AI-enabled solutions aligned with UNICEF's global framework of transferable skills.",
-    ctaText: "Learn More"
+    ctaText: "Learn More",
+    link: "/about"
   },
   {
     id: 2,
@@ -15,7 +17,8 @@ const SLIDES = [
     titleMid: "FUTURE WITH ADVANCED LEARNING",
     titleBot: "PROGRAMS",
     description: "Empower your career with skill-building programs designed for today's dynamic world. Learn in-demand skills, stay ahead of the curve, and shape a brighter future.",
-    ctaText: "Explore Now"
+    ctaText: "Explore Now",
+    link: "/#programs"
   },
   {
     id: 3,
@@ -23,7 +26,8 @@ const SLIDES = [
     titleMid: "BUSINESS WITH ADVANCED TECHNOLOGY",
     titleBot: "STRATEGIES",
     description: "Drive your business forward with our customized IT services that streamline processes and ensure sustainable growth in today’s fast-paced digital environment.",
-    ctaText: "Get Started"
+    ctaText: "Get Started",
+    link: "/#contact"
   }
 ];
 
@@ -85,12 +89,12 @@ function Hero() {
                   <p className="text-gray-300 mb-8 max-w-md text-base font-semibold leading-relaxed">
                     {slide.description}
                   </p>
-                  <a href="#" className="flex items-center text-purple-400 hover:text-purple-300 transition text-2xl font-semibold group cursor-pointer">
+                  <Link to={slide.link} className="flex items-center text-purple-400 hover:text-purple-300 transition text-2xl font-semibold group cursor-pointer">
                     {slide.ctaText}
                     <span className="ml-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded px-2 py-1 text-sm group-hover:scale-110 transition-transform duration-300">
                       &gt;
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             );
