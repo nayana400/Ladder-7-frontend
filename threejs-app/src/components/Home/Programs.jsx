@@ -41,24 +41,24 @@ const PROGRAMS = [
 
 function Programs() {
     return (
-        <section id="programs" className="py-12 bg-black text-white px-6 md:px-16">
+        <section id="programs" className="py-12 bg-[#1a365d] text-white px-6 md:px-16">
             <div className="max-w-7xl mx-auto">
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {PROGRAMS.map((program, index) => (
                         <div
                             key={index}
-                            className="group relative rounded-2xl overflow-hidden aspect-[3/5] cursor-pointer shadow-2xl border border-white/5 transition-transform duration-500 hover:scale-[1.03] hover:z-20"
+                            className="group relative rounded-2xl overflow-hidden aspect-[3/4.5] cursor-pointer shadow-2xl border border-white/5 transition-transform duration-500 hover:scale-[1.03] hover:z-20"
                         >
-                            {/* Background Image with Zoom */}
+                            {/* Background Image */}
                             <img
                                 src={program.image}
                                 alt={program.title}
-                                className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                                className="absolute inset-0 w-full h-full object-contain object-center"
                             />
 
                             {/* Gradient Overlay for Readability */}
-                            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/90 group-hover:bg-blue-600/60 group-hover:from-blue-900/80 group-hover:to-blue-900/90 transition-all duration-500"></div>
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/90 group-hover:bg-black/80 group-hover:from-black/90 group-hover:to-black transition-all duration-500"></div>
 
                             {/* Content Overlay */}
                             <div className="absolute inset-0 p-8 flex flex-col h-full z-10">
@@ -84,7 +84,7 @@ function Programs() {
                                     <div className="flex justify-center">
                                         <Link
                                             to={`/program/${program.id}`}
-                                            className="inline-block px-20 py-3 rounded bg-black text-white font-bold text-sm hover:bg-white hover:text-blue-900 transition-all duration-300 rounded no-underline whitespace-nowrap"
+                                            className="inline-block px-20 py-3 rounded bg-[#1a365d] text-white font-bold text-sm hover:bg-white hover:text-blue-900 transition-all duration-300 rounded no-underline whitespace-nowrap"
                                         >
                                             Learn more
                                         </Link>
