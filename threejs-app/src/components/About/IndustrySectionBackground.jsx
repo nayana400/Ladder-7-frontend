@@ -208,7 +208,7 @@ export default function IndustrySectionBackground() {
     }, []);
 
     return (
-        <div ref={containerRef} className="absolute inset-0 z-0 w-full h-full pointer-events-none overflow-hidden">
+        <div ref={containerRef} className="absolute inset-0 z-0 w-full h-full pointer-events-none overflow-hidden opacity-70">
             <div ref={mountRef} className="w-full h-full"></div>
         </div>
     );

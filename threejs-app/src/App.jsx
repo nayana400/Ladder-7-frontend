@@ -3,7 +3,7 @@ import Home from "./components/Home/Home";
 import ProgramDetail from "./components/Home/ProgramDetail";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
-import Blog from "./components/Home/Blog";
+import Blog from "./components/Blog/Blog";
 import CareersPage from "./components/Careers/CareersPage";
 import About from "./components/About/About";
 
