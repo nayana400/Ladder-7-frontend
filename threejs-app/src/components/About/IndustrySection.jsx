@@ -1,5 +1,6 @@
 import React from "react";
 import IndustrySectionBackground from "./IndustrySectionBackground";
+import IndustryHeading from "./IndustryHeading";
 
 const IndustrySection = () => {
     return (
@@ -15,9 +16,7 @@ const IndustrySection = () => {
 
                 {/* Section 1 */}
                 <div>
-                    <h2 className="text-3xl md:text-4xl font-bold mb-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                        Transforming Industries with Innovative Technology Solutions
-                    </h2>
+                    <IndustryHeading text="Transforming Industries with Innovative Technology Solutions" />
 
                     <p className="text-base md:text-lg text-justify leading-relaxed font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-gray-100">
                         At Ladder7 Next Step Solutions, we specialize in providing cutting-edge
@@ -36,10 +35,7 @@ const IndustrySection = () => {
 
                 {/* Section 2 */}
                 <div>
-                    <h2 className="text-3xl md:text-4xl font-bold mb-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                        Empowering Next-Gen Talents with AI-Driven Career Solutions and
-                        Value-Based Education
-                    </h2>
+                    <IndustryHeading text="Empowering Next-Gen Talents with AI-Driven Career Solutions and Value-Based Education" />
 
                     <p className="text-base md:text-lg text-justify leading-relaxed font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-gray-100">
                         Ladder7 Next Step Solutions is committed to nurturing the next

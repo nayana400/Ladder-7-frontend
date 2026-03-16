@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import WebGLPixelEffect from "./WebGLPixelEffect";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -105,24 +106,16 @@ const VisionMission = () => {
                     </div>
 
                     {/* Images */}
-                    <FadeUpReveal className="relative group" delay={0.2}>
-                        <img
-                            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
-                            alt="team vision"
-                            className="rounded-2xl shadow-2xl object-cover h-96 w-full hover:scale-[1.02] transition-transform duration-500"
-                        />
+                    <FadeUpReveal className="relative group overflow-hidden rounded-2xl shadow-2xl h-96 w-full" delay={0.2}>
+                        <WebGLPixelEffect imageUrl="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1200" />
                     </FadeUpReveal>
                 </div>
 
                 {/* MISSION */}
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     {/* Images */}
-                    <FadeUpReveal className="order-2 md:order-1 relative group" delay={0.2}>
-                        <img
-                            src="https://images.unsplash.com/photo-1551434678-e076c223a692"
-                            alt="team working"
-                            className="rounded-2xl shadow-2xl object-cover h-96 w-full hover:scale-[1.02] transition-transform duration-500"
-                        />
+                    <FadeUpReveal className="order-2 md:order-1 relative group overflow-hidden rounded-2xl shadow-2xl h-96 w-full" delay={0.2}>
+                        <WebGLPixelEffect imageUrl="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=1200" />
                     </FadeUpReveal>
 
                     {/* Text */}

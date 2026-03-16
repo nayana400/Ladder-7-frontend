@@ -1,4 +1,6 @@
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import Lenis from "lenis";
 import Home from "./components/Home/Home";
 import ProgramDetail from "./components/Home/ProgramDetail";
 import Login from "./components/Login/Login";
@@ -10,6 +12,31 @@ import CareersPage from "./components/Careers/CareersPage";
 import About from "./components/About/About";
 
 function App() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: "vertical",
+      gestureOrientation: "vertical",
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
   return (
     <div>
       <Routes>
