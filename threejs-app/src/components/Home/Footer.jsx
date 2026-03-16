@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Footer({ hideSocials }) {
   return (
-    <footer className="bg-[#112240] text-white py-12 px-6 relative border-t border-gray-800">
+    <footer className="bg-[#000000] text-white py-12 px-6 relative border-t border-white">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
         {/* Left: Location */}
         <div className="md:col-span-1">
@@ -23,10 +23,8 @@ function Footer({ hideSocials }) {
 
         {/* Center: Job Listings (2 columns) */}
         <div className="md:col-span-2">
-          <h3 className="text-xl font-bold mb-4">
-            <Link to="/careers" className="hover:text-blue-400 transition">Careers</Link>
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm text-gray-300">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm text-white">
             <div className="space-y-3">
               <Link to="/careers" className="block hover:text-blue-500 hover:underline transition">Junior Mobile App Developer</Link>
               <Link to="/careers" className="block hover:text-blue-500 hover:underline transition">Junior Web Developer</Link>
@@ -54,23 +52,23 @@ function Footer({ hideSocials }) {
                 <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
               </svg>
-              <a href="mailto:info@ladder7.in" className="text-sm">info@ladder7.in</a>
+              <a href="mailto:info@ladder7.in" className="text-sm hover:underline underline-offset-4">info@ladder7.in</a>
             </div>
 
             <div className="flex items-center gap-3 hover:text-gray-300 transition">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
               </svg>
-              <a href="tel:+918137979401" className="text-sm">+91 8137979401</a>
+              <a href="tel:+918137979401" className="text-sm hover:underline underline-offset-4">+91 8137979401</a>
             </div>
           </div>
         </div>
       </div>
 
       {/* Bottom Section */}
-      <div className="pt-8 border-t border-gray-900 flex flex-col items-center gap-2 text-sm text-gray-400">
-        <a href="#" className="hover:text-white transition">Privacy Policy</a>
-        <p>© 2025 Ladder7. All rights reserved.</p>
+      <div className="pt-8 border-t border-white flex flex-col items-center gap-2 text-sm text-gray-400">
+        <a href="#" className="text-white">Privacy Policy</a>
+        <p className="text-white">© 2025 Ladder7. All rights reserved.</p>
       </div>
 
       {/* Scroll to Top Button */}

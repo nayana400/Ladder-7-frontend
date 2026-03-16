@@ -1,13 +1,16 @@
-
+import neyndraLogo from '../../assets/Images/NeyndraLogo1.png';
+import globalWebLogo from '../../assets/Images/GlobalWebLogo.png';
 
 function Partners() {
     return (
-        <section className="py-20 bg-[#1a365d] border-y border-white/5 px-6">
+        <section className="py-12 bg-[#000000] border-y border-white/5 px-6">
             <div className="max-w-7xl mx-auto">
                 <h3 className="text-center text-white text-4xl font-bold mb-12 mt-4">Our Partners</h3>
-                <p className="text-center text-gray-400 max-w-2xl mx-auto">We collaborate with leading organizations to provide the best opportunities for our community.</p>
 
-
+                <div className="flex justify-center items-center gap-16 flex-wrap">
+                    <img src={neyndraLogo} alt="Neyndra" className="w-24 h-12 md:w-32 md:h-16 object-contain" />
+                    <img src={globalWebLogo} alt="Global Web" className="w-24 h-12 md:w-32 md:h-16 object-contain" />
+                </div>
             </div>
         </section>
     );

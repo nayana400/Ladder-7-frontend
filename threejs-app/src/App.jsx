@@ -1,21 +1,21 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
-import ProgramDetail from "./components/Home/ProgramDetail";
+import ProductDetail from "./components/Home/Products/ProductDetail";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
-import Blog from "./components/Home/Blog";
 import CareersPage from "./components/Careers/CareersPage";
+import ServicesPage from "./components/Services/ServicesPage";
 
 function App() {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/program/:id" element={<ProgramDetail />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/blog" element={<Blog />} />
         <Route path="/careers" element={<CareersPage />} />
+        <Route path="/services" element={<ServicesPage />} />
       </Routes>
     </div>
   );

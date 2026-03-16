@@ -1,10 +1,11 @@
 import Navbar from "./Navbar";
 import Hero from "./Hero/Hero";
-import Programs from "./Programs";
+import Products from "./Products/Products";
 import OurJourney from "./OurJourney";
 import OurPrograms from "./OurPrograms";
 import Advisor from "./Advisor";
 import Partners from "./Partners";
+import AboutUsSection from "./AboutUsSection";
 import Footer from "./Footer";
 
 const Home = () => {
@@ -12,11 +13,12 @@ const Home = () => {
         <div className="bg-[#1a365d] min-h-screen">
             <Navbar />
             <Hero />
-            <Programs />
+            <Products />
             <OurJourney />
             <OurPrograms />
-            <Advisor />
             <Partners />
+            <Advisor />
+            <AboutUsSection />
             <Footer />
         </div>
     );

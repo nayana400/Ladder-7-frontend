@@ -16,4 +16,70 @@
   .animate-fadeIn {
     animation: fadeIn 0.2s ease-out forwards;
   }
+
+  .text-3d-extruded {
+    text-shadow: 
+      1px 1px 0px rgba(0, 0, 0, 0.2),
+      2px 2px 0px rgba(0, 0, 0, 0.15),
+      3px 3px 0px rgba(0, 0, 0, 0.1),
+      4px 4px 0px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    display: inline-block;
+    animation: float3DSubtle 3s ease-in-out infinite;
+  }
+
+  @keyframes float3DSubtle {
+    0%, 100% {
+      transform: translateY(0) rotateX(0deg) rotateY(0deg) translateZ(0) scale(1);
+    }
+    50% {
+      transform: translateY(-12px) rotateX(10deg) rotateY(5deg) translateZ(30px) scale(1.25);
+      text-shadow: 
+        1px 1px 0px rgba(0, 0, 0, 0.2),
+        2px 2px 0px rgba(0, 0, 0, 0.15),
+        4px 4px 15px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .text-3d-extruded:hover {
+    transform: translateZ(30px) rotateX(15deg) rotateY(-15deg) scale(1.1);
+    text-shadow: 
+      1px 1px 0px rgba(0, 0, 0, 0.2),
+      2px 2px 0px rgba(0, 0, 0, 0.15),
+      3px 3px 0px rgba(0, 0, 0, 0.1),
+      4px 4px 0px rgba(0, 0, 0, 0.05),
+      8px 8px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .animate-logo-3d {
+    animation: logo-float-3d 6s ease-in-out infinite;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  @keyframes logo-float-3d {
+    0%, 100% {
+      transform: translateY(0) rotateX(0deg) rotateZ(0deg) scale(1);
+    }
+    33% {
+      transform: translateY(-15px) rotateX(10deg) rotateZ(2deg) scale(1.05);
+    }
+    66% {
+      transform: translateY(-5px) rotateX(-5deg) rotateZ(-2deg) scale(0.98);
+    }
+  }
+
+  .animate-float-subtle {
+    animation: float-subtle 4s ease-in-out infinite;
+  }
+
+  @keyframes float-subtle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
 }
