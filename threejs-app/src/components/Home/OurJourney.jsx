@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const JOURNEY_STEPS = [
     {
@@ -83,12 +84,47 @@ const JOURNEY_STEPS = [
 ];
 
 function OurJourney() {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.3,
+                delayChildren: 0.2
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, scale: 0.8, y: 20 },
+        visible: {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            transition: {
+                duration: 0.6,
+                ease: "easeOut"
+            }
+        }
+    };
+
+    const lineVariants = {
+        hidden: { scaleX: 0 },
+        visible: {
+            scaleX: 1,
+            transition: {
+                duration: 1.5,
+                ease: "easeInOut"
+            }
+        }
+    };
+
     return (
-        <section className="py-12 bg-[#112240] text-white px-6 overflow-hidden">
+        <section className="py-12 bg-[#000000] text-white px-6 overflow-hidden">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-24 px-4">
-                    <h2 className="text-4xl md:text-5xl font-black mb-6 mt-0">Our Journey</h2>
-                    <p className="text-white mx-auto text-lg max-w-3xl">
+                    <h2 className="text-lg md:text-3xl font-black mb-6 mt-0">Our Journey</h2>
+                    <p className="text-base text-white font-bold mx-auto max-w-none">
                         Explore L7 framework is a strategic model that focuses on seven essential elements to drive sustainable success
                     </p>
                 </div>
@@ -96,20 +132,32 @@ function OurJourney() {
                 {/* Horizontal Timeline Container */}
                 <div className="relative mt-20 hidden lg:block">
                     {/* The Progress Line */}
-                    <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-y-1/2"></div>
+                    <motion.div
+                        variants={lineVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-y-1/2 origin-left"
+                    ></motion.div>
 
-                    <div className="grid grid-cols-7 gap-4 relative z-10 h-full">
+                    <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        className="grid grid-cols-7 gap-4 relative z-10 h-full"
+                    >
                         {JOURNEY_STEPS.map((step, idx) => {
                             const isAbove = idx % 2 === 0;
                             return (
-                                <div key={idx} className="flex flex-col items-center group">
+                                <motion.div key={idx} variants={itemVariants} className="flex flex-col items-center group">
                                     {/* Content Card (Above) */}
                                     <div className={`transition-all duration-700 ease-out transform ${isAbove
                                         ? 'mb-8 -translate-y-2'
                                         : 'mb-8 opacity-0 pointer-events-none h-0'
                                         }`}>
                                         {isAbove && (
-                                            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-2xl w-56 text-center group-hover:bg-white/10 transition-all duration-500 overflow-hidden flex flex-col items-center">
+                                            <div className="backdrop-blur-md border border-white/10 p-4 rounded-2xl w-56 text-center transition-all duration-500 overflow-hidden flex flex-col items-center">
                                                 <h3 className="text-lg font-bold text-white mb-1">{step.title}</h3>
                                                 <p className="text-white text-[10px] font-bold opacity-90">
                                                     {step.description}
@@ -147,7 +195,7 @@ function OurJourney() {
                                         : 'mt-8 opacity-0 pointer-events-none h-0'
                                         }`}>
                                         {!isAbove && (
-                                            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-2xl w-56 text-center group-hover:bg-white/10 transition-all duration-500 overflow-hidden flex flex-col items-center">
+                                            <div className="backdrop-blur-md border border-white/10 p-4 rounded-2xl w-56 text-center transition-all duration-500 overflow-hidden flex flex-col items-center">
                                                 <h3 className="text-lg font-bold text-white mb-1">{step.title}</h3>
                                                 <p className="text-white text-[10px] font-bold opacity-90">
                                                     {step.description}
@@ -163,18 +211,29 @@ function OurJourney() {
                                             </div>
                                         )}
                                     </div>
-                                </div>
+                                </motion.div>
                             );
                         })}
-                    </div>
+                    </motion.div>
                 </div>
 
                 {/* Mobile Vertical Timeline */}
-                <div className="lg:hidden flex flex-col gap-12 relative px-4">
-                    <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-white/10 via-white/5 to-transparent"></div>
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.1 }}
+                    className="lg:hidden flex flex-col gap-12 relative px-4"
+                >
+                    <motion.div
+                        initial={{ scaleY: 0 }}
+                        whileInView={{ scaleY: 1 }}
+                        transition={{ duration: 1.5 }}
+                        className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-white/10 via-white/5 to-transparent origin-top"
+                    ></motion.div>
 
                     {JOURNEY_STEPS.map((step, idx) => (
-                        <div key={idx} className="flex gap-8 relative items-start group">
+                        <motion.div key={idx} variants={itemVariants} className="flex gap-8 relative items-start group">
                             <div
                                 style={{ backgroundColor: step.color }}
                                 className="w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center shadow-lg relative z-10 transition-transform duration-500 group-hover:scale-105"
@@ -182,15 +241,14 @@ function OurJourney() {
                                 <div className="scale-75">{step.icon}</div>
                             </div>
 
-                            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl flex-grow">
+                            <div className="backdrop-blur-md border border-white/10 p-5 rounded-2xl flex-grow">
                                 <h3 className="text-lg font-bold mb-1 text-white">{step.title}</h3>
                                 <p className="text-white text-[10px] font-bold opacity-90">{step.description}</p>
                                 <p className="text-white text-[9px] font-medium leading-relaxed mb-2">{step.extraDetails}</p>
-
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </section>
     );
