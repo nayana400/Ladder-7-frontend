@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import BackgroundParticles from "./BackgroundParticles";
 
 const SLIDES = [
   {
@@ -41,10 +42,22 @@ function Hero() {
     return () => clearInterval(autoPlayRef.current);
   }, [isPaused]);
 
+  const handlePrev = () => {
+    setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
+    setIsPaused(true);
+  };
+
+  const handleNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+    setIsPaused(true);
+  };
+
   return (
     <section className="h-[90vh] bg-[#000000] text-white flex flex-col justify-center px-6 md:px-16 relative overflow-hidden pt-20">
+      {/* Three.js Background Layer */}
+      <BackgroundParticles />
 
-      <div className="max-w-7xl w-full mx-auto relative h-full flex flex-col justify-center">
+      <div className="max-w-7xl w-full mx-auto relative h-full flex flex-col justify-center z-10">
 
         {/* Slider Container */}
         <div className="relative overflow-hidden w-full h-[60vh] md:h-[50vh]">
@@ -97,7 +110,19 @@ function Hero() {
         </div>
 
         {/* Controls: Dots and Play/Pause Centered at Bottom */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-6 z-20">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-6 z-20 bg-black/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/10">
+          {/* Left Arrow */}
+          <button
+            onClick={handlePrev}
+            className="w-8 h-8 border border-white/20 rounded-full flex items-center justify-center hover:bg-white/10 transition group"
+            aria-label="Previous Slide"
+          >
+            <svg className="w-4 h-4 text-white/70 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Dots */}
           <div className="flex gap-3">
             {SLIDES.map((_, index) => (
               <button
@@ -106,13 +131,16 @@ function Hero() {
                   setCurrentSlide(index);
                   setIsPaused(true);
                 }}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${currentSlide === index ? "bg-purple-600 scale-125 shadow-[0_0_8px_rgba(168,85,247,0.5)]" : "bg-gray-600 hover:bg-white"
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${currentSlide === index
+                  ? "bg-purple-600 scale-125 shadow-[0_0_8px_rgba(168,85,247,0.5)]"
+                  : "bg-gray-600 hover:bg-white"
                   }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}
           </div>
 
+          {/* Play/Pause */}
           <button
             onClick={() => setIsPaused(!isPaused)}
             className="w-8 h-8 border border-white/20 rounded-full flex items-center justify-center hover:bg-white/10 transition"
@@ -123,6 +151,17 @@ function Hero() {
             ) : (
               <svg className="w-3 h-3 fill-white" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
             )}
+          </button>
+
+          {/* Right Arrow */}
+          <button
+            onClick={handleNext}
+            className="w-8 h-8 border border-white/20 rounded-full flex items-center justify-center hover:bg-white/10 transition group"
+            aria-label="Next Slide"
+          >
+            <svg className="w-4 h-4 text-white/70 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </button>
         </div>
       </div>

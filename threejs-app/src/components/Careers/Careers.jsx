@@ -1,202 +1,224 @@
-import React, { useRef, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+// Import career images
+import career1 from '../../assets/Images/careers/career1.webp';
+import career2 from '../../assets/Images/careers/career2.webp';
+import career3 from '../../assets/Images/careers/career3.webp';
+
+const CAREER_IMAGES = [career1, career2, career3];
 
 const OPEN_POSITIONS = [
     {
         title: "HR Intern",
         location: "Trivandrum",
-        duration: "3 months (1+2 months)",
+        duration: "3 months",
         mode: "Work from Office",
-        qualification: "MBA in HR / Marketing / General",
-        description: "We are looking for an HR Intern to assist in our recruitment and talent management processes. The ideal candidate should have strong communication skills and a passion for people management.",
-        category: "HR"
+        qualification: "MBA in HR / Marketing",
+        description: "We are looking for an HR Intern to assist in our recruitment and talent management processes. Assist in screening resumes, scheduling interviews, and maintaining employee records.",
+        category: "HR",
+        image: career1,
+        type: "Paid"
     },
     {
-        title: "WordPress Developer Intern",
+        title: "WordPress Developer",
         location: "Trivandrum",
-        duration: "3 months (1+2 months)",
+        duration: "3 months",
         mode: "Work from Office",
-        qualification: "Computer Science, IT, or related field",
-        description: "Join our mobile development team to build cutting-edge applications using React Native or Flutter. You will work on cross-platform solutions and collaborate with UI/UX designers.",
-        category: "Engineering"
+        qualification: "B.Tech / MCA / BCA",
+        description: "Join our development team to build and maintain WordPress websites. Experience with PHP, HTML5, CSS3, and JavaScript is preferred.",
+        category: "Engineering",
+        image: career2,
+        type: "Stipend"
     },
     {
-        title: "Flutter Developer Intern",
+        title: "Flutter Developer",
         location: "Trivandrum",
-        duration: "3 months (1+2 months)",
+        duration: "3 months",
         mode: "Work from Office",
-        qualification: "Current student or recent graduate in Computer Science, IT, or a related field",
-        description: "Looking for a passionate web developer with experience in React, Node.js, and modern CSS frameworks. You will be responsible for building and maintaining responsive web applications.",
-        category: "Engineering"
+        qualification: "B.Tech / MCA / BCA",
+        description: "Looking for a passionate Flutter developer to build cross-platform mobile applications. knowledge of Dart and state management is essential.",
+        category: "Engineering",
+        image: career3,
+        type: "Paid"
     },
     {
-        title: "AEM Author Internship Program",
+        title: "AEM Author Intern",
         location: "Hybrid",
-        duration: "1-month Unpaid Probation",
+        duration: "1 month",
         mode: "Hybrid",
-        qualification: "Graduate (Any Computer Science Degree)",
-        description: "Help us expand our digital footprint. You will manage social media campaigns, SEO, and content marketing strategies to drive engagement and growth.",
-        category: "Marketing"
+        qualification: "Computer Science Degree",
+        description: "Learn and work with Adobe Experience Manager. You will be responsible for content authoring and managing digital assets within the AEM platform.",
+        category: "Engineering",
+        image: career1,
+        type: "Unpaid"
     }
-
 ];
 
 const JobAccordion = ({ job }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div>
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="w-full text-left p-6 md:p-8 rounded-xl bg-gradient-to-r from-[#1e3a8a] via-[#312e81] to-[#4c1d95] border border-white/10 hover:border-blue-500/50 transition-all duration-300 relative group overflow-hidden"
-            >
-                {/* Title and Job Preview */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
-                    <div className="flex-1">
-                        <h3 className="text-2xl md:text-2xl font-bold text-white mb-4 group-hover:text-blue-300 transition-colors">
-                            {job.title}
-                        </h3>
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="group relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl overflow-hidden transition-all duration-500 hover:border-blue-500/50 hover:shadow-[0_20px_50px_-15px_rgba(59,130,246,0.3)]"
+        >
+            <div className="flex flex-col md:flex-row">
+                {/* Image Header (Left on Desktop) */}
+                <div className="md:w-[40%] h-72 md:h-auto overflow-hidden relative min-h-[220px]">
+                    <img
+                        src={job.image}
+                        alt={job.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/60 to-transparent" />
+                </div>
 
-                        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-blue-100/70 text-sm md:text-base">
-                            <div className="flex items-center gap-2">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                                <span>{job.location}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span>{job.duration}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                </svg>
-                                <span>{job.mode}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z" />
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-                                </svg>
-                                <span>{job.qualification}</span>
-                            </div>
+                {/* Content Section (Right on Desktop) */}
+                <div className="md:w-[60%] p-6 md:p-8 flex flex-col justify-center">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-6 transition-colors">
+                        {job.title}
+                    </h3>
+
+                    {/* Info List - Horizontal */}
+                    <div className="flex flex-wrap gap-x-8 gap-y-4 mb-8">
+                        <div className="flex flex-col">
+                            <span className="text-[#3b82f6] font-semibold text-xs uppercase tracking-wider mb-1">Location</span>
+                            <span className="text-gray-200 text-sm">{job.location}</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-[#3b82f6] font-semibold text-xs uppercase tracking-wider mb-1">Duration</span>
+                            <span className="text-gray-200 text-sm">{job.duration}</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-[#3b82f6] font-semibold text-xs uppercase tracking-wider mb-1">Work Mode</span>
+                            <span className="text-gray-200 text-sm">{job.mode}</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-[#3b82f6] font-semibold text-xs uppercase tracking-wider mb-1">Qualification</span>
+                            <span className="text-gray-200 text-sm">{job.qualification}</span>
                         </div>
                     </div>
 
-                    <motion.div
-                        animate={{ rotate: isOpen ? 180 : 0 }}
-                        className="text-white bg-white/10 p-2 rounded-full hidden md:block"
-                    >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </motion.div>
-                </div>
-            </button>
+                    {/* Primary Apply Button */}
+                    <div className="flex flex-wrap items-center gap-6 mt-4">
+                        <button className="px-6 py-2 text-sm bg-[#003399] hover:bg-[#0044cc] text-white font-semibold rounded-full transition-all transform hover:scale-105 flex items-center gap-2 group cursor-pointer shadow-[0_8px_20px_-5px_rgba(0,51,153,0.5)]">
+                            Apply Now
+                            <svg className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </button>
 
+                        <button
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="px-4 py-2 text-sm border border-white/20 hover:border-orange-500 text-white font-semibold rounded-full transition-all flex items-center gap-1.5 bg-white/5"
+                        >
+                            {isOpen ? "Hide Details" : "Read More"}
+                            <motion.span animate={{ rotate: isOpen ? 180 : 0 }}>
+                                <svg className="w-3 h-3 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </motion.span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Expanded Description Area (Below the card split) */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="overflow-hidden bg-[#0a1128] rounded-b-xl -mt-2 border-x border-b border-white/5"
+                        className="bg-black/20 border-t border-white/10"
                     >
-                        <div className="p-8 pt-10">
-                            <div className="mb-8">
-                                <h4 className="text-white font-bold text-lg mb-4">Job Description</h4>
-                                <p className="text-blue-100/70 leading-relaxed text-base">
-                                    {job.description}
-                                </p>
-                            </div>
-                            <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-lg hover:from-blue-500 hover:to-purple-500 transition-all transform hover:scale-105 flex items-center gap-2 group cursor-pointer border-none outline-none">
-                                Apply Now
-                                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
-                            </button>
+                        <div className="p-8 md:p-12">
+                            <h4 className="text-white font-bold text-xl mb-4 border-l-4 border-orange-500 pl-4">Job Description</h4>
+                            <p className="text-gray-300 text-lg leading-relaxed font-light">
+                                {job.description}
+                            </p>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </motion.div>
     );
 };
 
 const Careers = () => {
-    const rolesSectionRef = useRef(null);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    const scrollToRoles = (e) => {
-        e.preventDefault();
-        rolesSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-    };
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % CAREER_IMAGES.length);
+        }, 5000); // Change image every 5 seconds
+
+        return () => clearInterval(interval);
+    }, []);
 
     return (
-        <div className="bg-[#000000]">
-            {/* Hero Section */}
-            <section className="relative min-h-[80vh] overflow-hidden flex items-center pt-20">
-                <div className="container mx-auto px-6 relative z-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <div className="max-w-4xl">
-                            <h2 className="text-4xl md:text-6xl font-extrabold text-white mt-6 mb-8 leading-tight">
-                                EXPLORE YOUR PASSION, <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
-                                    CREATE LASTING CHANGE
-                                </span>
-                            </h2>
-                            <p className="text-xl md:text-2xl text-blue-100/80 mb-12 max-w-2xl leading-relaxed">
-                                Transform your career while transforming lives.
-                            </p>
-                            <div className="flex flex-wrap gap-6">
-                                <button
-                                    onClick={scrollToRoles}
-                                    className="px-10 py-4 bg-white text-[#1a365d] font-bold rounded-full hover:bg-blue-50 transition-all transform hover:-translate-y-1 shadow-2xl flex items-center gap-2 group cursor-pointer border-none outline-none"
-                                >
-                                    Explore Open Roles
-                                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Colorful Letters Column */}
+        <div className="bg-[#000000] min-h-screen">
+            {/* Image Slider Hero Section */}
+            <section className="relative h-[60vh] md:h-[70vh] overflow-hidden group">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={currentImageIndex}
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 1.5, ease: "easeInOut" }}
+                        className="absolute inset-0 w-full h-full"
+                    >
                         <div
-                            className="hidden lg:flex flex-wrap justify-end gap-4 select-none opacity-50 lg:opacity-100"
-                            style={{ perspective: '1000px' }}
+                            className="w-full h-full bg-cover bg-center bg-no-repeat"
+                            style={{ backgroundImage: `url(${CAREER_IMAGES[currentImageIndex]})` }}
                         >
-                            {[
-                                { char: 'C', color: 'text-cyan-400' },
-                                { char: 'A', color: 'text-pink-400' },
-                                { char: 'R', color: 'text-blue-500' },
-                                { char: 'E', color: 'text-purple-500' },
-                                { char: 'E', color: 'text-indigo-500' },
-                                { char: 'R', color: 'text-blue-400' }
-                            ].map((item, index) => (
-                                <span
-                                    key={index}
-                                    className={`text-8xl lg:text-9xl font-black ${item.color} cursor-default text-3d-extruded`}
-                                    style={{ animationDelay: `${index * 0.2}s` }}
-                                >
-                                    {item.char}
-                                </span>
-                            ))}
+                            {/* Overlay gradient for better readability */}
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60" />
                         </div>
+                    </motion.div>
+                </AnimatePresence>
+
+                {/* Hero Content Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <div className="text-center px-6">
+                        <motion.h2
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.5, duration: 0.8 }}
+                            className="text-4xl md:text-7xl font-extrabold text-white mb-6 uppercase tracking-wider"
+                        >
+                            Join Our Mission
+                        </motion.h2>
+                        <motion.div
+                            initial={{ scaleX: 0 }}
+                            animate={{ scaleX: 1 }}
+                            transition={{ delay: 0.8, duration: 1 }}
+                            className="w-24 h-1.5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mx-auto"
+                        />
                     </div>
+                </div>
+
+                {/* Slider Indicators */}
+                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+                    {CAREER_IMAGES.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => setCurrentImageIndex(index)}
+                            className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentImageIndex ? 'bg-white w-8' : 'bg-white/30'
+                                }`}
+                        />
+                    ))}
                 </div>
             </section>
 
             {/* Open Positions Section */}
             <section
-                ref={rolesSectionRef}
                 id="open-positions"
-                className="py-12 bg-[#000000] relative z-10 scroll-mt-24"
+                className="py-24 bg-[#000000] relative z-10 scroll-mt-24"
             >
                 <div className="container mx-auto px-6 max-w-5xl">
                     <div className="mb-10 text-center">
@@ -205,7 +227,7 @@ const Careers = () => {
 
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="grid grid-cols-1 gap-12">
                         {OPEN_POSITIONS.map((job, index) => (
                             <JobAccordion key={index} job={job} />
                         ))}

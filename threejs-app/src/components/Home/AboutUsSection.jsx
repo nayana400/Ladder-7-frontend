@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import aboutImg from "../../assets/Images/AboutUs.png";
 
 const AboutUsSection = () => {
@@ -10,31 +11,75 @@ const AboutUsSection = () => {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
         {/* Left Column — Image */}
-        <div className="rounded-2xl overflow-hidden shadow-2xl">
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="rounded-2xl overflow-hidden shadow-2xl"
+        >
           <img
             src={aboutImg}
             alt="About Us"
             className="w-full h-full object-cover block rounded-2xl"
           />
-        </div>
+        </motion.div>
 
-        {/* Right Column — Text */}
+        {/* Right Column — Text with Character Reveal */}
         <div className="flex flex-col justify-center">
-          <h2 className="text-xl md:text-3xl font-bold text-white mb-6 leading-tight bg-gradient-to-br from-white to-blue-300 bg-clip-text text-transparent">
-            About Us
-          </h2>
+          <motion.h2 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              visible: { transition: { staggerChildren: 0.05 } },
+              hidden: {},
+            }}
+            className="text-xl md:text-3xl font-bold text-white mb-6 leading-tight bg-gradient-to-br from-white to-blue-300 bg-clip-text text-transparent"
+          >
+            {"About Us".split("").map((char, index) => (
+              <motion.span
+                key={index}
+                variants={{
+                  hidden: { opacity: 0, x: -20 },
+                  visible: { opacity: 1, x: 0 },
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </motion.h2>
 
           {/* Hoverable text area */}
           <div
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
           >
-            {/* Always visible first part */}
-            <p className="text-base text-white leading-relaxed max-w-lg">
-              At Ladder7 Next Step Solutions, we specialize in providing cutting-edge
-              technology solutions to tackle complex industry challenges. Our dedicated
-              R&D team continuously identifies business challenges and develops
-            </p>
+            {/* Always visible first part with character reveal */}
+            <motion.p 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={{
+                visible: { transition: { staggerChildren: 0.01 } },
+                hidden: {},
+              }}
+              className="text-base text-white leading-relaxed max-w-lg"
+            >
+              {"At Ladder7 Next Step Solutions, we specialize in providing cutting-edge technology solutions to tackle complex industry challenges. Our dedicated R&D team continuously identifies business challenges and develops".split("").map((char, index) => (
+                <motion.span
+                  key={index}
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: { opacity: 1 },
+                  }}
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </motion.p>
+
 
             {/* Expandable part — no reserved space when hidden */}
             <div
@@ -63,9 +108,9 @@ const AboutUsSection = () => {
             className="inline-flex items-center gap-2 w-fit mt-6 px-6 py-3 rounded-full border border-blue-400 text-white text-sm font-semibold hover:bg-blue-500 hover:border-blue-500 transition-all duration-300"
           >
             Know More
-            <span>→</span>
-          </Link>
+            </Link>
         </div>
+
 
       </div>
     </section>
@@ -73,3 +118,4 @@ const AboutUsSection = () => {
 };
 
 export default AboutUsSection;
+

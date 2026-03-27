@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../Home/Navbar';
+import ServiceTimeline from './ServiceTimeline';
+
 import Footer from '../Home/Footer';
 import webDevImg from '../../assets/Images/services/web-development.jpg';
 import productDevImg from '../../assets/Images/services/product-development.webp';
@@ -10,7 +12,6 @@ import digitalMarketingImg from '../../assets/Images/services/digital-marketing.
 import hyperAutomationImg from '../../assets/Images/services/hyper-automation.jpg';
 import remoteWorkImg from '../../assets/Images/services/remote-work.jpg';
 import skillDevelopmentImg from '../../assets/Images/services/skill-development.jpg';
-import VideoCard from './VideoCard';
 const services = [
     {
         id: "web-app-dev",
@@ -121,66 +122,38 @@ const ServicesPage = () => {
         <div className="bg-[#000000] min-h-screen font-sans relative overflow-hidden">
             <Navbar />
 
-            <div className="pt-20 text-center">
-                <h1 className="text-xl md:text-5xl font-black text-white px-10 md:px-20">
-                    Our Services
-                </h1>
-            </div>
-
-            <div className="flex justify-center items-center mt-14 mb-12">
-                <VideoCard
-                    title="Ladder7 Website"
-                    video="/assets/ladder7.mp4"
-                    link="http://localhost:5173/"
-
-                />
-            </div>
-
-            <div className="pb-20 px-6 max-w-7xl mx-auto relative z-10 w-full">
-                {/* Services Cards */}
-                <div className="w-full flex flex-col pt-8">
-                    <div className="w-full space-y-8 flex flex-col items-start">
-                        {services.map((service, index) => (
-                            <motion.div
-                                key={service.id}
-                                id={service.id}
-                                initial={{ opacity: 0, x: -30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true, margin: "-50px" }}
-                                transition={{ duration: 0.6, delay: index * 0.1 }}
-                                className="w-full p-6 rounded-2xl bg-[#231d5e] border border-white/5 hover:border-blue-500/30 transition-all duration-300 shadow-xl shadow-black/40 scroll-mt-24 group"
-                            >
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center flex-1">
-                                    {/* First Column: Text Content */}
-                                    <div className="flex flex-col gap-4">
-                                        <div>
-                                            <h2 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
-                                                {service.category}
-                                            </h2>
-                                            <div className="space-y-2">
-                                                {service.items.map((item) => (
-                                                    <div key={item} className="flex items-center gap-3 text-gray-300 text-sm md:text-base">
-                                                        <CheckIcon />
-                                                        <span>{item}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Second Column: Picture Space */}
-                                    <div className="relative w-full aspect-[21/9] bg-[#231d5e] rounded-xl overflow-hidden flex flex-col items-center justify-center group-hover:border-blue-500/20 transition-all duration-300">
-                                        <img
-                                            src={service.image}
-                                            alt={service.category}
-                                            className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
-                                        />
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
+            <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto relative z-10 w-full">
+                <div className="text-center mb-16 overflow-hidden">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                        className="text-xl md:text-4xl font-bold mb-8 tracking-tighter leading-none"
+                    >
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-100 via-blue-500 to-gray-100 bg-[length:200%_auto] animate-gradient block">
+                            Our Services
+                        </span>
+                    </motion.h1>
+                    <motion.div
+                        initial={{ scaleX: 0, opacity: 0 }}
+                        whileInView={{ scaleX: 1, opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.2, ease: "circOut", delay: 0.3 }}
+                        className="h-[1px] w-32 md:w-48 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent mx-auto mb-10"
+                    />
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.6 }}
+                        className="text-gray-400 text-lg md:text-2xl max-w-3xl mx-auto px-6 font-light leading-relaxed tracking-wide"
+                    >
+                        Comprehensive solutions tailored to your business needs, <br className="hidden md:block" /> powered by innovation and world-class expertise.
+                    </motion.p>
                 </div>
+
+                <ServiceTimeline services={services} />
             </div>
 
             <Footer />
