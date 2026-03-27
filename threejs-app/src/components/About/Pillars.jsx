@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
     Lightbulb,
     Heart,
@@ -8,6 +8,11 @@ import {
     Briefcase,
     Code,
 } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const pillars = [
     {
@@ -63,49 +68,110 @@ const pillars = [
 
 export default function Pillars() {
     const [active, setActive] = useState(null);
+    const [hovered, setHovered] = useState(null);
+    const containerRef = useRef(null);
+    const centerRef = useRef(null);
 
     const radius = 300; // distance from center in px
     const totalPillars = pillars.length;
 
     const getPosition = (index) => {
-        // Start from top (-90 deg) and distribute evenly
         const angle = (2 * Math.PI * index) / totalPillars - Math.PI / 2;
         const x = radius * Math.cos(angle);
         const y = radius * Math.sin(angle);
         return { x, y };
     };
 
+    useGSAP(() => {
+        // Entrance animation
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top 70%",
+            }
+        });
+
+        tl.from(centerRef.current, {
+            scale: 0,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.7)"
+        })
+            .from(".pillar-node", {
+                x: 0,
+                y: 0,
+                scale: 0,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "elastic.out(1, 0.75)"
+            }, "-=0.4")
+            .from(".connector-line", {
+                strokeDashoffset: 1000,
+                opacity: 0,
+                duration: 1.5,
+                ease: "power2.out"
+            }, "-=0.8");
+
+        // Mobile cards reveal
+        gsap.from(".mobile-pillar-card", {
+            x: -50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".mobile-container",
+                start: "top 85%",
+            }
+        });
+    }, { scope: containerRef });
+
     const handleClick = (id) => {
         setActive((prev) => (prev === id ? null : id));
     };
 
+    const onCenterMove = (e) => {
+        const rect = centerRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        gsap.to(".branding-content", {
+            x: x * 0.3,
+            y: y * 0.3,
+            duration: 0.6,
+            ease: "power2.out"
+        });
+    };
+
+    const onCenterLeave = () => {
+        gsap.to(".branding-content", {
+            x: 0,
+            y: 0,
+            duration: 0.6,
+            ease: "power2.out"
+        });
+    };
+
     return (
-        <section className="relative text-center bg-black text-white px-6 md:px-16 py-20">
-            {/* Label */}
-
+        <section ref={containerRef} className="relative text-center bg-black text-white px-6 md:px-16 py-32 overflow-hidden">
             {/* Heading */}
-            <div className="flex flex-col items-center text-center mb-16">
-
-                <h2 className="text-3xl md:text-4xl font-bold my-8 text-center text-white mb-24">
-                    Our Core Values
+            <div className="flex flex-col items-center text-center mb-24 relative z-10">
+                <span className="text-blue-500 font-black tracking-widest text-sm uppercase mb-4">Foundation</span>
+                <h2 className="text-5xl md:text-7xl font-black italic tracking-tighter">
+                    OUR CORE VALUES
                 </h2>
-
             </div>
 
-
-            <div className="hidden md:flex justify-center items-center">
-                <div
-                    className="relative origin-center transform scale-[0.75] xl:scale-100 -my-24 xl:my-0 transition-transform duration-500"
-                    style={{ width: 760, height: 760 }}
-                >
+            <div className="hidden md:flex justify-center items-center min-h-[800px]">
+                <div className="relative" style={{ width: 760, height: 760 }}>
                     {/* SVG connectors */}
-                    <svg
-                        className="absolute inset-0 pointer-events-none"
-                        width="760"
-                        height="760"
-                    >
+                    <svg className="absolute inset-0 pointer-events-none" width="760" height="760">
                         {pillars.map((pillar, index) => {
                             const { x, y } = getPosition(index);
+                            const isPillarActive = active === pillar.id;
+                            const isPillarHovered = hovered === pillar.id;
+                            const isHighlighted = hovered ? isPillarHovered : isPillarActive;
                             return (
                                 <line
                                     key={pillar.id}
@@ -113,142 +179,115 @@ export default function Pillars() {
                                     y1="380"
                                     x2={380 + x}
                                     y2={380 + y}
-                                    stroke={active === pillar.id ? "#3b82f6" : "rgba(59,130,246,0.18)"}
-                                    strokeWidth={active === pillar.id ? 2 : 1}
+                                    stroke={isHighlighted ? "#3b82f6" : "rgba(59,130,246,0.15)"}
+                                    strokeWidth={isHighlighted ? 2 : 1}
                                     strokeDasharray="5 4"
-                                    className="transition-all duration-300"
+                                    className="connector-line transition-all duration-500"
                                 />
                             );
                         })}
                     </svg>
 
-                    {/* Center — Large "7" */}
+                    {/* Center Branding */}
                     <div
-                        className="absolute z-10 flex flex-col items-center justify-center rounded-full cursor-default select-none"
+                        ref={centerRef}
+                        onMouseMove={onCenterMove}
+                        onMouseLeave={onCenterLeave}
+                        className="absolute z-10 flex flex-col items-center justify-center rounded-full cursor-default select-none hover:shadow-[0_0_60px_rgba(37,99,235,0.4)] transition-shadow duration-500"
                         style={{
-                            width: 210,
-                            height: 210,
-                            background: "rgba(14, 37, 70, 0.6)",
-                            backdropFilter: "blur(16px)",
-                            boxShadow:
-                                "inset 0 0 60px rgba(37, 99, 235, 0.3), 0 0 40px rgba(37, 99, 235, 0.3)",
-                            border: "1px solid rgba(96, 165, 250, 0.4)",
+                            width: 240,
+                            height: 240,
+                            background: "rgba(14, 37, 70, 0.4)",
+                            backdropFilter: "blur(20px)",
+                            border: "1.5px solid rgba(96, 165, 250, 0.3)",
                             top: "50%",
                             left: "50%",
                             transform: "translate(-50%, -50%)",
                         }}
                     >
-                        {/* Outer rotating ring */}
-                        <div className="absolute inset-[-12px] rounded-full border border-transparent border-t-blue-400 border-r-blue-500 opacity-60 animate-[spin_8s_linear_infinite]"></div>
+                        {/* Rotating Rings */}
+                        <div className="absolute inset-[-15px] rounded-full border border-transparent border-t-blue-400/40 border-r-blue-500/40 animate-[spin_10s_linear_infinite]"></div>
+                        <div className="absolute inset-[15px] rounded-full border-[1.5px] border-dashed border-blue-400/20 animate-[spin_15s_linear_infinite_reverse]"></div>
 
-                        {/* Inner rotating dashed ring */}
-                        <div className="absolute inset-[10px] rounded-full border-[1.5px] border-dashed border-blue-400/30 animate-[spin_12s_linear_infinite_reverse]"></div>
-
-                        <span
-                            className="relative font-black leading-none text-transparent bg-clip-text bg-gradient-to-b from-white via-blue-100 to-blue-500"
-                            style={{
-                                fontSize: 120,
-                                letterSpacing: "-6px",
-                                filter: "drop-shadow(0 0 15px rgba(96, 165, 250, 0.5))"
-                            }}
-                        >
-                            7
-                        </span>
-
+                        <div className="branding-content flex flex-col items-center">
+                            <span className="font-black leading-none text-transparent bg-clip-text bg-gradient-to-b from-white via-blue-100 to-blue-600"
+                                style={{ fontSize: 130, letterSpacing: "-8px", filter: "drop-shadow(0 0 20px rgba(96, 165, 250, 0.6))" }}>
+                                7
+                            </span>
+                        </div>
                     </div>
 
                     {/* Pillar Nodes */}
                     {pillars.map((pillar, index) => {
                         const { x, y } = getPosition(index);
                         const isActive = active === pillar.id;
-
-                        // Outward direction from center — used to position tooltip beyond node edge
+                        const isHovered = hovered === pillar.id;
+                        // Single state priority: Hover takes precedence, then Active
+                        const isVisible = hovered ? isHovered : isActive;
                         const angle = (2 * Math.PI * index) / totalPillars - Math.PI / 2;
-                        const dx = Math.cos(angle);
-                        const dy = Math.sin(angle);
-                        // Push tooltip center 160px outward from node center (node radius = 70px)
-                        const tooltipOffsetX = dx * 160;
-                        const tooltipOffsetY = dy * 160;
+                        const tooltipOffsetX = Math.cos(angle) * 180;
+                        const tooltipOffsetY = Math.sin(angle) * 180;
 
                         return (
                             <div
                                 key={pillar.id}
-                                className="absolute z-20"
+                                className="pillar-node absolute z-20"
                                 style={{
                                     top: "50%",
                                     left: "50%",
                                     transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
                                 }}
                             >
-                                {/* Radially outward tooltip — never overlaps other nodes */}
-                                {isActive && (
+                                {/* Tooltip */}
+                                {isVisible && (
                                     <div
-                                        className="absolute z-30 w-44 rounded-xl p-3 text-left pointer-events-none"
+                                        className="absolute z-30 w-56 rounded-2xl p-5 text-left pointer-events-none"
                                         style={{
-                                            background: "rgba(14,37,70,0.97)",
-                                            border: "1px solid rgba(59,130,246,0.45)",
-                                            boxShadow: "0 4px 20px rgba(59,130,246,0.25)",
+                                            background: "rgba(10, 25, 47, 0.96)",
+                                            backdropFilter: "blur(12px)",
+                                            border: "1px solid rgba(59, 130, 246, 0.5)",
+                                            boxShadow: "0 15px 40px rgba(0, 0, 0, 0.6)",
                                             top: "50%",
                                             left: "50%",
+                                            // Pass offsets as CSS variables for the animation
+                                            "--tx": `${tooltipOffsetX}px`,
+                                            "--ty": `${tooltipOffsetY}px`,
                                             transform: `translate(calc(-50% + ${tooltipOffsetX}px), calc(-50% + ${tooltipOffsetY}px))`,
-                                            animation: "fadeIn 0.2s ease",
+                                            animation: "pillarFadeIn 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards",
                                         }}
                                     >
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <pillar.Icon size={16} className="text-blue-400 shrink-0" />
-                                            <span className="text-white font-bold text-xs">{pillar.name}</span>
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <div className="p-2 bg-blue-500/20 rounded-lg">
+                                                <pillar.Icon size={18} className="text-blue-400" />
+                                            </div>
+                                            <span className="text-white font-black text-sm uppercase tracking-wider">{pillar.name}</span>
                                         </div>
-                                        <p className="text-gray-300 text-[11px] leading-relaxed">
+                                        <p className="text-gray-300 text-xs leading-relaxed font-light">
                                             {pillar.description}
                                         </p>
                                     </div>
                                 )}
 
-                                {/* Pillar Circle */}
                                 <button
                                     onClick={() => handleClick(pillar.id)}
-                                    className="group flex flex-col items-center justify-center rounded-full transition-all duration-300 focus:outline-none"
+                                    onMouseEnter={() => setHovered(pillar.id)}
+                                    onMouseLeave={() => setHovered(null)}
+                                    className={`group flex flex-col items-center justify-center rounded-full transition-all duration-500 
+                                              ${isVisible ? 'scale-110' : 'hover:scale-105'}`}
                                     style={{
-                                        width: 140,
-                                        height: 140,
-                                        background: isActive
-                                            ? "linear-gradient(135deg, rgba(37,99,235,0.6), rgba(29,78,216,0.4))"
-                                            : "rgba(255,255,255,0.04)",
-                                        border: isActive
-                                            ? "1.5px solid rgba(96,165,250,0.7)"
-                                            : "1.5px solid rgba(255,255,255,0.1)",
-                                        boxShadow: isActive
-                                            ? "0 0 24px rgba(59,130,246,0.35)"
-                                            : "none",
+                                        width: 154,
+                                        height: 154,
+                                        background: isVisible ? "rgba(37, 99, 235, 0.25)" : "rgba(255, 255, 255, 0.03)",
+                                        border: isVisible ? "2px solid rgba(59, 130, 246, 0.8)" : "1.5px solid rgba(255, 255, 255, 0.08)",
+                                        boxShadow: isVisible ? "0 0 30px rgba(59, 130, 246, 0.4)" : "none",
                                         backdropFilter: "blur(12px)",
                                     }}
                                 >
-                                    <span className="mb-2 transition-transform duration-300 group-hover:scale-110">
-                                        <pillar.Icon
-                                            size={36}
-                                            className="text-white"
-                                            strokeWidth={1.5}
-                                        />
-                                    </span>
-                                    <span
-                                        className="font-semibold text-center leading-tight px-1"
-                                        style={{
-                                            fontSize: 13,
-                                            color: isActive ? "#93c5fd" : "#e2e8f0",
-                                            letterSpacing: "0.04em",
-                                        }}
-                                    >
+                                    <pillar.Icon size={40} className={`mb-3 transition-colors duration-500 ${isVisible ? 'text-white' : 'text-gray-400 group-hover:text-white'}`} strokeWidth={1.2} />
+                                    <span className={`font-black text-xs uppercase tracking-widest ${isVisible ? 'text-blue-300' : 'text-gray-500 group-hover:text-blue-300'}`}>
                                         {pillar.name}
                                     </span>
-                                    <span
-                                        className="font-bold mt-0.5"
-                                        style={{
-                                            fontSize: 11,
-                                            color: isActive
-                                                ? "rgba(147,197,253,0.8)"
-                                                : "rgba(148,163,184,0.5)",
-                                        }}
-                                    >
+                                    <span className="absolute -bottom-2 text-[10px] font-black text-blue-500/40 tracking-tighter">
                                         0{pillar.id}
                                     </span>
                                 </button>
@@ -258,62 +297,42 @@ export default function Pillars() {
                 </div>
             </div>
 
-            <div className="flex md:hidden flex-col gap-6 mt-12 relative mx-auto max-w-md">
-                {/* Mobile Center Branding */}
-                <div className="flex justify-center mb-8">
-                    <div
-                        className="relative flex flex-col items-center justify-center rounded-full"
-                        style={{
-                            width: 140,
-                            height: 140,
-                            background: "rgba(14, 37, 70, 0.6)",
-                            backdropFilter: "blur(16px)",
-                            boxShadow: "inset 0 0 40px rgba(37, 99, 235, 0.3), 0 0 30px rgba(37, 99, 235, 0.3)",
-                            border: "1px solid rgba(96, 165, 250, 0.4)",
-                        }}
-                    >
-                        <div className="absolute inset-[-8px] rounded-full border border-transparent border-t-blue-400 border-r-blue-500 opacity-60 animate-[spin_8s_linear_infinite]"></div>
-                        <div className="absolute inset-[6px] rounded-full border-[1.5px] border-dashed border-blue-400/30 animate-[spin_12s_linear_infinite_reverse]"></div>
-                        <span className="relative font-black leading-none text-transparent bg-clip-text bg-gradient-to-b from-white via-blue-100 to-blue-500"
-                            style={{ fontSize: 72, letterSpacing: "-4px", filter: "drop-shadow(0 0 10px rgba(96, 165, 250, 0.5))" }}>
-                            7
-                        </span>
+            {/* Mobile View */}
+            <div className="mobile-container flex md:hidden flex-col gap-8 mt-12 max-w-md mx-auto relative px-4">
+                <div className="flex justify-center mb-12">
+                    <div className="relative flex flex-col items-center justify-center rounded-full w-40 h-40 bg-[#0e2546]/60 backdrop-blur-xl border border-blue-500/30">
+                        <span className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-blue-500">7</span>
                     </div>
                 </div>
 
-                {/* Mobile Pillar Cards */}
                 {pillars.map((pillar) => (
                     <div
                         key={pillar.id}
-                        className="relative bg-[#0e2546]/60 backdrop-blur-md border border-white/10 rounded-2xl p-6 text-left flex gap-5 items-start transition-all hover:bg-[#0e2546]/90 hover:border-blue-500/30"
+                        className="mobile-pillar-card bg-[#0e2546]/40 backdrop-blur-md border border-white/5 rounded-[2rem] p-8 text-left flex gap-6 items-center hover:border-blue-500/30 transition-all"
                     >
-                        <div className="shrink-0">
-                            <div className="w-14 h-14 rounded-full bg-blue-500/10 border border-blue-400/30 flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-                                <pillar.Icon size={26} className="text-blue-400" strokeWidth={1.5} />
-                            </div>
+                        <div className="p-4 bg-blue-500/10 rounded-2xl border border-blue-400/20">
+                            <pillar.Icon size={32} className="text-blue-400" />
                         </div>
                         <div>
-                            <div className="flex items-center gap-2 mb-1">
-                                <span className="text-blue-500 font-black text-xs tracking-wider opacity-70">
-                                    0{pillar.id}
-                                </span>
-                            </div>
-                            <h4 className="text-white font-bold text-lg mb-2">{pillar.name}</h4>
-                            <p className="text-gray-300 text-sm leading-relaxed">
-                                {pillar.description}
-                            </p>
+                            <h4 className="text-white font-black text-xl uppercase tracking-tight mb-2">{pillar.name}</h4>
+                            <p className="text-sm text-center">{pillar.description}</p>
                         </div>
                     </div>
                 ))}
             </div>
 
-            {/* Keyframe animation */}
             <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform-origin: center; transform: scale(0.92); }
-          to   { opacity: 1; transform-origin: center; transform: scale(1); }
-        }
-      `}</style>
+                @keyframes pillarFadeIn {
+                    from { 
+                        opacity: 0; 
+                        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.85); 
+                    }
+                    to { 
+                        opacity: 1; 
+                        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1); 
+                    }
+                }
+            `}</style>
         </section>
     );
 }

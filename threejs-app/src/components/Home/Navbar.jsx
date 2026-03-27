@@ -54,7 +54,7 @@ function Navbar() {
       { name: "Skill Development and Training", path: "/services#skill-development" }
     ],
     products: [
-      { name: "My Ladder", path: "/program/1" },
+      { name: "My Ladder", path: "/myladder" },
       { name: "Mind gym", path: "/program/2" },
       { name: "Mirror me", path: "/program/3" },
       { name: "Fill Dots", path: "/program/4" },
@@ -190,7 +190,7 @@ function Navbar() {
               )}
             </div>
 
-            <Link to="/" className="hover:text-gray-400 transition py-2 whitespace-nowrap" onClick={(e) => handleLinkClick(e, "/")}>What we think</Link>
+            <Link to="/blog" className="hover:text-gray-400 transition py-2 whitespace-nowrap" onClick={(e) => handleLinkClick(e, "/blog")}>What we think</Link>
             <Link to="/careers" onClick={handleCareersClick} className="hover:text-gray-400 transition py-2 whitespace-nowrap">Careers</Link>
           </div>
 
@@ -283,7 +283,7 @@ function Navbar() {
           </div>
 
 
-          <Link to="/" className="block hover:text-gray-400 py-2" onClick={() => setOpen(false)}>What we think</Link>
+          <Link to="/blog" className="block hover:text-gray-400 py-2" onClick={() => setOpen(false)}>What we think</Link>
           <Link to="/careers" className="block hover:text-gray-400 py-2" onClick={(e) => { handleCareersClick(e); setOpen(false); }}>Careers</Link>
           <div className="pt-4 flex flex-col space-y-3">
             <Link to="/login" className="w-full text-center block px-5 py-2 rounded-full border border-gray-600 hover:border-white transition text-sm" onClick={() => setOpen(false)}>

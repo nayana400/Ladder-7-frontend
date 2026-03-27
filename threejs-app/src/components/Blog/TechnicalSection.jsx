@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
 
-const TechnicalBlogCard = ({ blog }) => {
+const TechnicalBlogCard = ({ blog, isList = false }) => {
     const cardRef = useRef(null);
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -51,13 +51,13 @@ const TechnicalBlogCard = ({ blog }) => {
             className="group relative w-full perspective-2000"
         >
             {/* Main Surface */}
-            <div className="relative glass-card rounded-[2.5rem] p-10 overflow-hidden border border-white/10 group-hover:neon-border transition-all duration-700">
+            <div className="relative bg-[#0a192f]/40 backdrop-blur-xl rounded-[2.5rem] p-10 overflow-hidden border border-white/5 group-hover:border-blue-500/30 transition-all duration-700">
 
-                {/* 3D Content Container */}
-                <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center" style={{ transformStyle: "preserve-3d" }}>
+                {/* 3D Content Container - Adapts between Grid and List */}
+                <div className={isList ? "grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center" : "flex flex-col gap-10"} style={{ transformStyle: "preserve-3d" }}>
 
-                    {/* Left Side: 3D Visual Stack */}
-                    <div className="relative h-[550px]" style={{ transformStyle: "preserve-3d" }}>
+                    {/* Visual Stack */}
+                    <div className={`relative ${isList ? 'h-[550px]' : 'h-[420px]'}`} style={{ transformStyle: "preserve-3d" }}>
 
                         {/* Layer 0: Background Glow */}
                         <div className="absolute inset-0 bg-blue-500/10 blur-[100px] rounded-full group-hover:bg-blue-500/20 transition-colors duration-700" />
@@ -70,7 +70,7 @@ const TechnicalBlogCard = ({ blog }) => {
                                 transform: "translateZ(50px)",
                                 transformStyle: "preserve-3d"
                             }}
-                            className="absolute inset-0 rounded-3xl overflow-hidden shadow-2xl border border-white/20"
+                            className="absolute inset-0 rounded-3xl overflow-hidden shadow-2xl border border-white/20 bg-black/40"
                         >
                             <img src={blog.image} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
@@ -84,64 +84,52 @@ const TechnicalBlogCard = ({ blog }) => {
                             style={{
                                 x: layer2X,
                                 y: layer2Y,
-                                transform: "translateZ(120px)"
+                                transform: "translateZ(100px)"
                             }}
-                            className="absolute -right-8 bottom-12 p-6 glass-card rounded-2xl border-white/30 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-40"
+                            className="absolute -right-4 -bottom-4 p-5 glass-card rounded-2xl border-white/30 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-40"
                         >
-                            <div className="flex flex-col gap-3">
+                            <div className="flex flex-col gap-2">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                                    <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest">System Online</span>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                                    <span className="text-[9px] font-bold text-gray-300 uppercase tracking-widest">System Online</span>
                                 </div>
-                                <div className="text-white font-black text-xl">{blog.stats.views} <span className="text-blue-400 text-sm font-normal">VIEWS</span></div>
+                                <div className="text-white font-black text-lg">{blog.stats.views} <span className="text-blue-400 text-xs font-normal">VIEWS</span></div>
                             </div>
-                        </motion.div>
-
-                        {/* Layer 3: Tech Brackets */}
-                        <motion.div
-                            style={{ transform: "translateZ(150px)" }}
-                            className="absolute inset-0 pointer-events-none"
-                        >
-                            <div className="absolute top-0 left-0 w-12 h-12 border-t-4 border-l-4 border-blue-500/50 rounded-tl-3xl group-hover:translate-x-[-10px] group-hover:translate-y-[-10px] transition-transform duration-500" />
-                            <div className="absolute bottom-0 right-0 w-12 h-12 border-b-4 border-r-4 border-blue-500/50 rounded-br-3xl group-hover:translate-x-[10px] group-hover:translate-y-[10px] transition-transform duration-500" />
                         </motion.div>
                     </div>
 
-                    {/* Right Side: Text & Data */}
-                    <div style={{ transform: "translateZ(80px)" }}>
-                        <motion.div className="flex items-center gap-4 mb-4">
-                            <span className="px-4 py-1 rounded-full bg-blue-600/20 text-blue-400 text-xs font-black uppercase border border-blue-500/30">
+                    {/* Bottom/Right: Text & Data */}
+                    <div className={`${isList ? 'space-y-8' : 'space-y-6'}`} style={{ transform: "translateZ(60px)" }}>
+                        <div className="flex items-center gap-4">
+                            <span className={`px-4 py-1 rounded-full bg-blue-600/20 text-blue-400 font-black uppercase border border-blue-500/30 ${isList ? 'text-xs' : 'text-[10px]'}`}>
                                 {blog.category}
                             </span>
-                            <div className="h-[1px] w-12 bg-white/20" />
-                            <span className="text-gray-500 text-xs font-bold uppercase">{blog.stats.readTime} Read</span>
-                        </motion.div>
+                            <div className="h-[1px] w-8 bg-white/20" />
+                            <span className={`text-gray-500 font-bold uppercase ${isList ? 'text-xs' : 'text-[10px]'}`}>{blog.stats.readTime} Read</span>
+                        </div>
 
-                        <h3 className="text-4xl lg:text-5xl font-black text-white leading-tight mb-6 group-hover:neon-text-glow transition-all duration-300">
+                        <h3 className={`${isList ? 'text-4xl lg:text-5xl' : 'text-2xl'} font-black text-white leading-tight group-hover:neon-text-glow transition-all duration-300`}>
                             {blog.title}
                         </h3>
 
-                        <p className="text-gray-400 text-lg leading-relaxed mb-10 max-w-xl">
+                        <p className={`text-gray-400 leading-relaxed ${isList ? 'text-lg md:text-xl' : 'text-base line-clamp-2'}`}>
                             {blog.desc}
                         </p>
 
-                        <div className="flex items-center gap-8">
+                        <div className={`flex items-center justify-between pt-6 border-t border-white/5`}>
                             <Link 
                                 to={`/blog/technical-insights/${blog.id}`}
-                                className="relative px-8 py-4 bg-blue-600 rounded-xl text-white font-bold uppercase tracking-widest overflow-hidden group/btn hover:shadow-[0_0_30px_#2563eb] transition-all duration-300 block"
+                                className={`flex items-center gap-2 text-blue-500 font-bold uppercase tracking-widest hover:text-white transition-colors group/link ${isList ? 'text-xs' : 'text-[10px]'}`}
                             >
-                                <span className="relative z-10 flex items-center gap-2">
-                                    Read Insights
-                                    <svg className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                    </svg>
-                                </span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-transparent opacity-0 group-hover/btn:opacity-20 transition-opacity" />
+                                Read Insights
+                                <svg className={`${isList ? 'w-5 h-5' : 'w-4 h-4'} group-hover/link:translate-x-1 transition-transform`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
                             </Link>
 
-                            <div className="flex flex-col">
-                                <span className="text-[10px] text-gray-500 font-bold uppercase">Author</span>
-                                <span className="text-white font-bold">{blog.author}</span>
+                            <div className="flex flex-col items-end">
+                                <span className={`text-gray-500 font-bold uppercase ${isList ? 'text-[10px]' : 'text-[9px]'}`}>Author</span>
+                                <span className={`text-white font-bold ${isList ? 'text-base' : 'text-xs'}`}>{blog.author}</span>
                             </div>
                         </div>
                     </div>
@@ -157,7 +145,7 @@ const TechnicalBlogCard = ({ blog }) => {
     );
 };
 
-const TechnicalSection = ({ technicalBlogs, showViewAll = false }) => {
+const TechnicalSection = ({ technicalBlogs, showViewAll = false, columns = 2 }) => {
     return (
         <motion.div
             initial="hidden"
@@ -170,7 +158,7 @@ const TechnicalSection = ({ technicalBlogs, showViewAll = false }) => {
                     transition: { staggerChildren: 0.3 }
                 }
             }}
-            className="lg:col-span-3"
+            className="w-full"
         >
             <div className="mb-16 flex items-center justify-between">
                 <Link to="/blog/technical-insights" className="group">
@@ -192,9 +180,9 @@ const TechnicalSection = ({ technicalBlogs, showViewAll = false }) => {
                 )}
             </div>
 
-            <div className="flex flex-col gap-10">
+            <div className={columns === 1 ? "flex flex-col gap-16" : "grid md:grid-cols-2 gap-12"}>
                 {technicalBlogs.map((blog) => (
-                    <TechnicalBlogCard key={blog.id} blog={blog} />
+                    <TechnicalBlogCard key={blog.id} blog={blog} isList={columns === 1} />
                 ))}
             </div>
         </motion.div>

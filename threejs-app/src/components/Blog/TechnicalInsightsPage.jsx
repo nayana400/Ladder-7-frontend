@@ -7,7 +7,7 @@ import { technicalBlogs } from "./blogData";
 
 export default function TechnicalInsightsPage() {
     return (
-        <div className="bg-transparent min-h-screen">
+        <div className="bg-[#051120] min-h-screen">
             <Navbar />
             <section className="relative min-h-screen pt-32 pb-40 px-6 lg:px-20 overflow-hidden">
                 <BlogScene />
@@ -17,7 +17,7 @@ export default function TechnicalInsightsPage() {
                     </div>
 
                     <div className="grid grid-cols-1">
-                        <TechnicalSection technicalBlogs={technicalBlogs} />
+                        <TechnicalSection technicalBlogs={technicalBlogs} columns={1} />
                     </div>
                 </div>
             </section>

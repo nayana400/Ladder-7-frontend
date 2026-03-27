@@ -2,7 +2,6 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import Navbar from "../Home/Navbar";
 import Footer from "../Home/Footer";
-import BorealSky from "./BorealSky";
 import { technicalBlogs, events } from "./blogData";
 
 export default function BlogDetail() {
@@ -21,12 +20,11 @@ export default function BlogDetail() {
     }
 
     return (
-        <div className="bg-transparent min-h-screen text-white">
+        <div className="bg-[#051120] min-h-screen text-white">
             <Navbar />
             <section className="relative pt-40 pb-20 px-6 lg:px-20 min-h-screen overflow-hidden">
-                <BorealSky />
                 
-                <div className="relative z-10 max-w-4xl mx-auto glass-card rounded-[3rem] p-10 md:p-16 border border-white/10 backdrop-blur-3xl shadow-2xl">
+                <div className="relative z-10 max-w-4xl mx-auto bg-[#0a192f]/40 backdrop-blur-3xl rounded-[3rem] p-10 md:p-16 border border-white/5 shadow-2xl">
                     <Link to="/blog" className="text-blue-400 font-bold mb-8 inline-flex items-center gap-2 group">
                         <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />

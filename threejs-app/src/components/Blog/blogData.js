@@ -1,6 +1,4 @@
 // Local image imports from Blog.jsx to stay consistent
-import Tech1 from "../../assets/Images/blog/tech1.png";
-import Tech2 from "../../assets/Images/blog/tech2.png";
 import ChristmasCelebration from "../../assets/Images/blog/Christmas-celebration.jpg";
 import IndependenceDayCelebration from "../../assets/Images/blog/IndependenceDay-celebration.png";
 import OnamCelebration from "../../assets/Images/blog/Onam-celebration.jpeg";
@@ -8,7 +6,7 @@ import OnamCelebration from "../../assets/Images/blog/Onam-celebration.jpeg";
 export const technicalBlogs = [
     {
         id: 1,
-        image: Tech1,
+        image: "/Blog/aitool.jpg",
         date: "18-12-2024",
         author: "Admin",
         title: "Tips for Collaborating with AI Tools in Web Development Teams",
@@ -18,7 +16,7 @@ export const technicalBlogs = [
     },
     {
         id: 2,
-        image: Tech2,
+        image: "/Blog/aitool2.jpg",
         date: "18-12-2024",
         author: "Admin",
         title: "The Role of AI in Personalizing Web User Experiences",

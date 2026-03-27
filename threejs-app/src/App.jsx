@@ -12,6 +12,8 @@ import CareersPage from "./components/Careers/CareersPage";
 import About from "./components/About/About";
 import BlogDetail from "./components/Blog/BlogDetail";
 import ServicesPage from "./components/Services/ServicesPage";
+import MyLadder from "./components/MyLadder/MyLadder";
+import MyGym from "./components/MyGym/MyGym";
 
 function App() {
   useEffect(() => {
@@ -53,6 +55,9 @@ function App() {
         <Route path="/careers" element={<CareersPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/myladder" element={<MyLadder />} />
+        <Route path="/program/2" element={<MyGym />} />
+        <Route path="/program/:id" element={<ProductDetail />} />
       </Routes>
     </div>
   );

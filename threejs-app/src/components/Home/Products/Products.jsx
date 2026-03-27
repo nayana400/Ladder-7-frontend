@@ -12,32 +12,36 @@ const PRODUCTS = [
         subtitle: "Achieve your goals with ease through personalized strategies and focused, step-by-step guidance.",
         description: "MyLadder is a step-by-step program that will enable you to set a set of goals aligned to your skills and help you to climb the ladder up to your defined goals over a defined period.",
         image: ladder,
+        path: "/myladder",
         tags: []
     },
-    {
-        id: "2",
-        title: "Mind Gym",
-        subtitle: "Train your mind to unlock success through focused mental conditioning and resilience-building techniques.",
-        description: "Interactive mind exercise for a healthy mind which will enable you to practice stress management and improve your decision making skills leading to a better life.",
-        image: mindgym,
-        tags: []
-    },
-    {
-        id: "3",
-        title: "Mirror Me",
-        subtitle: "Discover your true potential by exploring strengths and unlocking avenues for personal success.",
-        description: "Mirror Me is a self-reflection program to make anybody realize what you know about yourself in terms of talents, IQ, EQ, and Goals through a set of simple programs.",
-        image: mirror,
-        tags: []
-    },
-    {
-        id: "4",
-        title: "Fill Dots",
-        subtitle: "Bridge the gap to success by connecting missing pieces and achieving your dreams.",
-        description: "Specially designed program to upskill and bridge the gap between you and your next best career.",
-        image: filldots,
-        tags: []
-    }
+                    {
+                        id: "2",
+                        title: "Mind Gym",
+                        subtitle: "Train your mind to unlock success through focused mental conditioning and resilience-building techniques.",
+                        description: "Interactive mind exercise for a healthy mind which will enable you to practice stress management and improve your decision making skills leading to a better life.",
+                        image: mindgym,
+                        path: "/program/2",
+                        tags: []
+                    },
+                    {
+                        id: "3",
+                        title: "Mirror Me",
+                        subtitle: "Discover your true potential by exploring strengths and unlocking avenues for personal success.",
+                        description: "Mirror Me is a self-reflection program to make anybody realize what you know about yourself in terms of talents, IQ, EQ, and Goals through a set of simple programs.",
+                        image: mirror,
+                        path: "/program/3",
+                        tags: []
+                    },
+                    {
+                        id: "4",
+                        title: "Fill Dots",
+                        subtitle: "Bridge the gap to success by connecting missing pieces and achieving your dreams.",
+                        description: "Specially designed program to upskill and bridge the gap between you and your next best career.",
+                        image: filldots,
+                        path: "/program/4",
+                        tags: []
+                    }
 ];
 
 function Products() {
@@ -50,7 +54,7 @@ function Products() {
                     {PRODUCTS.map((product, index) => (
                         <div
                             key={index}
-                            onClick={() => navigate(`/products/${product.id}`)}
+                            onClick={() => navigate(product.path || `/products/${product.id}`)}
                             className="group relative rounded-2xl overflow-hidden aspect-[3/4.5] cursor-pointer shadow-2xl border border-white/5 transition-transform duration-500 hover:scale-[1.03] hover:z-20"
                         >
                             {/* Background Image */}
@@ -86,7 +90,7 @@ function Products() {
                                     </p>
                                     <div className="flex justify-center">
                                         <Link
-                                            to={`/products/${product.id}`}
+                                            to={product.path || `/products/${product.id}`}
                                             className="inline-block px-10 md:px-20 py-3 rounded bg-[#1a365d] text-white font-bold text-sm hover:bg-white hover:text-blue-900 transition-all duration-300 no-underline whitespace-nowrap"
                                             onClick={(e) => e.stopPropagation()}
                                         >

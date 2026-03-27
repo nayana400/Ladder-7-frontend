@@ -54,8 +54,8 @@ function GridBackground() {
 
 export default function BlogScene() {
   return (
-    <div className="absolute inset-0 -z-10 bg-[#020617]">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#020617] opacity-80" />
+    <div className="absolute inset-0 -z-10 bg-[#051120]">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#051120] via-[#0a192f] to-[#051120] opacity-80" />
       <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
         <Particles />
         <GridBackground />
