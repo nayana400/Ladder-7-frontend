@@ -119,7 +119,7 @@ const ServicesPage = () => {
     );
 
     return (
-        <div className="bg-[#000000] min-h-screen font-sans relative overflow-hidden">
+        <div className="bg-[oklch(0.93_0.01_0)] min-h-screen font-sans relative overflow-hidden">
             <Navbar />
 
             <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto relative z-10 w-full">
@@ -131,7 +131,7 @@ const ServicesPage = () => {
                         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                         className="text-xl md:text-4xl font-bold mb-8 tracking-tighter leading-none"
                     >
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-100 via-blue-500 to-gray-100 bg-[length:200%_auto] animate-gradient block">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-[#003399] to-gray-900 bg-[length:200%_auto] animate-gradient block">
                             Our Services
                         </span>
                     </motion.h1>
@@ -140,14 +140,14 @@ const ServicesPage = () => {
                         whileInView={{ scaleX: 1, opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.2, ease: "circOut", delay: 0.3 }}
-                        className="h-[1px] w-32 md:w-48 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent mx-auto mb-10"
+                        className="h-[1.5px] w-32 md:w-48 bg-gradient-to-r from-transparent via-[#003399]/30 to-transparent mx-auto mb-10"
                     />
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.6 }}
-                        className="text-gray-400 text-lg md:text-2xl max-w-3xl mx-auto px-6 font-light leading-relaxed tracking-wide"
+                        className="text-gray-600 text-lg md:text-2xl max-w-3xl mx-auto px-6 font-light leading-relaxed tracking-wide"
                     >
                         Comprehensive solutions tailored to your business needs, <br className="hidden md:block" /> powered by innovation and world-class expertise.
                     </motion.p>

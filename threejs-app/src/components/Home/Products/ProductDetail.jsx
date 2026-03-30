@@ -1,139 +1,237 @@
-import { useParams, Link } from "react-router-dom";
-import React, { Suspense } from "react";
-import Navbar from "../Navbar";
-import Footer from "../Footer";
-import ladder from "../../../assets/Images/ladder.jpg"
-import logoImg from "../../../assets/Images/LADDER 7 LOGO.png";
-const PRODUCTS_DATA = {
-    "1": {
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import ladder from "../../../assets/Images/ladder.jpg";
+import mindgym from "../../../assets/Images/mindgym.jpg";
+import mirror from "../../../assets/Images/mirror.jpg";
+import filldots from "../../../assets/Images/filldots.webp";
+
+const PRODUCTS = [
+    {
+        id: "1",
         title: "My Ladder",
         subtitle: "Achieve your goals with ease through personalized strategies and focused, step-by-step guidance.",
-        description: "A step-by-step program designed to help individuals set and achieve career goals that align with their skills and aspirations. The program guides you through a structured process, enabling you to progress systematically toward your defined objectives over a specified period. By focusing on skill development, goal alignment, and continuous improvement, MyLadder ensures that individuals you effectively \"climb the ladder\" to reach your desired career milestones, ultimately leading to sustainable career success and personal growth.",
+        description:
+            "MyLadder is a step-by-step program that will enable you to set a set of goals aligned to your skills and help you to climb the ladder up to your defined goals over a defined period.",
         image: ladder,
-        fullDetails: [
-            "Personalized career roadmap based on skills and aspirations.",
-            "AI-enabled gap analysis to identify areas for improvement.",
-            "One-on-one mentoring with industry veterans.",
-            "Regular progress tracking and milestone celebrations."
-        ]
+        color: "#1a365d",
+        highlights: [
+            "Personalized goal-setting framework",
+            "Step-by-step milestone tracking",
+            "Skill-aligned career roadmap",
+            "Expert mentorship and guidance",
+            "Progress analytics dashboard",
+        ],
+        tags: ["Goal Setting", "Career Growth", "Mentorship"],
     },
-    "2": {
+    {
+        id: "2",
         title: "Mind Gym",
         subtitle: "Train your mind to unlock success through focused mental conditioning and resilience-building techniques.",
-        description: "Interactive mind exercise for a healthy mind which will enable you to practice stress management and improve your decision making skills leading to a better life.",
-        image: "https://images.unsplash.com/photo-1593720213428-28a5b9ed9461?w=1200",
-        fullDetails: [
-            "Stress management techniques for high-pressure environments.",
-            "Focus and concentration exercises for peak performance.",
-            "Emotional intelligence (EQ) development.",
-            "Decision-making frameworks for career and life."
-        ]
+        description:
+            "Interactive mind exercise for a healthy mind which will enable you to practice stress management and improve your decision making skills leading to a better life.",
+        image: mindgym,
+        color: "#1a4a3d",
+        highlights: [
+            "Daily mental conditioning exercises",
+            "Stress management techniques",
+            "Decision-making skill development",
+            "Resilience and focus training",
+            "Mindfulness & wellness modules",
+        ],
+        tags: ["Mental Wellness", "Resilience", "Mindfulness"],
     },
-    "3": {
+    {
+        id: "3",
         title: "Mirror Me",
         subtitle: "Discover your true potential by exploring strengths and unlocking avenues for personal success.",
-        description: "Mirror Me is a self-reflection program to make anybody realize what you know about yourself in terms of talents, IQ, EQ, and Goals through a set of simple programs.",
-        image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200",
-        fullDetails: [
-            "Comprehensive self-assessment tools.",
-            "Identification of hidden talents and strengths.",
-            "Aptitude and IQ analysis.",
-            "Goal alignment based on true personal identity."
-        ]
+        description:
+            "Mirror Me is a self-reflection program to make anybody realize what you know about yourself in terms of talents, IQ, EQ, and Goals through a set of simple programs.",
+        image: mirror,
+        color: "#3d1a4a",
+        highlights: [
+            "IQ & EQ assessment tools",
+            "Talent discovery modules",
+            "Personal strength mapping",
+            "Goal alignment workshops",
+            "360° self-reflection framework",
+        ],
+        tags: ["Self-Reflection", "IQ & EQ", "Personal Growth"],
     },
-    "4": {
+    {
+        id: "4",
         title: "Fill Dots",
         subtitle: "Bridge the gap to success by connecting missing pieces and achieving your dreams.",
-        description: "Specially designed program to upskill and bridge the gap between you and your next best career.",
-        image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=1200",
-        fullDetails: [
-            "Tailored skilling programs for in-demand roles.",
-            "Bridge courses for transitioning between industries.",
-            "Practical workshop-based learning.",
-            "Certification of excellence upon completion."
-        ]
-    }
-};
+        description:
+            "Specially designed program to upskill and bridge the gap between you and your next best career.",
+        image: filldots,
+        color: "#4a3a1a",
+        highlights: [
+            "Skill gap analysis",
+            "Targeted upskilling programs",
+            "Career-ready certification paths",
+            "Industry-aligned curriculum",
+            "Hands-on project experience",
+        ],
+        tags: ["Upskilling", "Career Readiness", "Certification"],
+    },
+];
 
-function ProductDetail() {
+export default function ProductDetail() {
     const { id } = useParams();
-    const program = PRODUCTS_DATA[id];
+    const navigate = useNavigate();
+    const product = PRODUCTS.find((p) => p.id === id);
 
-    if (!program) {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [id]);
+
+    if (!product) {
         return (
-            <div className="min-h-screen bg-[#112240] text-white flex flex-col items-center justify-center p-6 text-center">
-                <h1 className="text-4xl font-bold mb-4">Product Not Found</h1>
-                <Link to="/" className="text-purple-400 hover:underline">Back to Home</Link>
+            <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center gap-6">
+                <h1 className="text-4xl font-bold">Product Not Found</h1>
+                <button
+                    onClick={() => navigate("/")}
+                    className="px-8 py-3 bg-white text-black rounded-full font-semibold hover:bg-gray-200 transition"
+                >
+                    Go Back Home
+                </button>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-[#000000] text-white">
-            <Navbar />
-            {/* Header section with 3D Logo (2 Equal Columns) */}
-            <div className="relative pt-32 pb-12 px-6 md:px-24 bg-[#062861] border-b border-white/5">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-16">
-                    {/* Column 1: Logo */}
-                    <div className="flex justify-center items-center w-full h-48 md:h-64 relative">
-                        <div className="absolute inset-0 w-full h-full flex items-center justify-center">
-                            <img src={logoImg} alt="Logo" className="w-full h-full object-contain" />
-                        </div>
-                    </div>
+        <div className="min-h-screen bg-black text-white">
+            {/* Hero Section */}
+            <div className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
+                <img
+                    src={product.image}
+                    alt={product.title}
+                    className="absolute inset-0 w-full h-full object-cover object-center"
+                    style={{ filter: "brightness(0.45)" }}
+                />
+                {/* Gradient overlays */}
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        background: `linear-gradient(135deg, ${product.color}cc 0%, transparent 60%)`,
+                    }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
 
-                    {/* Column 2: Heading */}
-                    <div className="text-center md:text-left">
-                        <h1 className="text-3xl md:text-5xl font-black mb-6 text-white">
-                            {program.title}
-                        </h1>
-                        <p className="text-purple-400 text-lg md:text-xl font-semibold italic">
-                            {program.subtitle}
-                        </p>
+                {/* Back button */}
+                <button
+                    onClick={() => navigate(-1)}
+                    className="absolute top-6 left-6 flex items-center gap-2 text-white/80 hover:text-white transition-colors z-10 group"
+                >
+                    <svg
+                        className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        viewBox="0 0 24 24"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span className="text-sm font-medium">Back</span>
+                </button>
+
+                {/* Hero Content */}
+                <div className="absolute bottom-0 left-0 right-0 px-8 md:px-20 pb-12 z-10">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {product.tags.map((tag) => (
+                            <span
+                                key={tag}
+                                className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-white/80"
+                            >
+                                {tag}
+                            </span>
+                        ))}
                     </div>
+                    <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight">
+                        {product.title}
+                    </h1>
+                    <p className="text-white/70 text-lg md:text-xl max-w-2xl leading-relaxed">
+                        {product.subtitle}
+                    </p>
                 </div>
             </div>
 
-            {/* Content */}
-            <div className="max-w-7xl mx-auto px-6 md:px-24 py-20">
-                <div className="grid md:grid-cols-3 gap-16">
-                    <div className="md:col-span-2">
-                        <h2 className="text-2xl font-bold mb-8 uppercase tracking-widest text-white/90">Product Overview</h2>
-                        <p className="text-gray-400 text-lg leading-relaxed mb-12">
-                            {program.description}
-                        </p>
+            {/* Content Section */}
+            <div className="max-w-6xl mx-auto px-6 md:px-16 py-16 grid md:grid-cols-2 gap-16 items-start">
+                {/* Left: Description */}
+                <div>
+                    <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span
+                            className="inline-block w-1 h-7 rounded-full"
+                            style={{ background: `linear-gradient(to bottom, ${product.color}, #fff)` }}
+                        />
+                        About This Program
+                    </h2>
+                    <p className="text-white/60 text-base leading-relaxed mb-10">
+                        {product.description}
+                    </p>
 
-                        <h2 className="text-3xl font-bold mb-8 uppercase tracking-widest text-white/90">Key Highlights</h2>
-                        <ul className="space-y-6">
-                            {program.fullDetails.map((detail, idx) => (
-                                <li key={idx} className="flex items-start gap-4 group">
-                                    <div className="mt-1.5 w-6 h-6 rounded-full border border-purple-500 flex items-center justify-center shrink-0 group-hover:bg-purple-500 transition-colors">
-                                        <div className="w-2 h-2 rounded-full bg-purple-500 group-hover:bg-white transition-colors"></div>
-                                    </div>
-                                    <span className="text-gray-300 text-lg group-hover:text-white transition-colors">{detail}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    <button
+                        onClick={() => navigate("/signup")}
+                        className="inline-block px-10 py-4 rounded-full font-bold text-sm text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                        style={{ background: `linear-gradient(135deg, ${product.color}, #1a365d)` }}
+                    >
+                        Get Started →
+                    </button>
+                </div>
 
-                    <div className="md:col-span-1">
-                        <div className="bg-zinc-900/50 p-8 rounded-3xl border border-white/5 sticky top-24 flex flex-col items-center justify-center text-center">
-                            <h3 className="text-2xl font-bold mb-4">Start Your Journey</h3>
-                            <p className="text-gray-400 mb-8">
-                                Ready to take the next step towards your goals?
-                            </p>
-                            <Link to="/login" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-blue-500/20 active:scale-95">
-                                GET STARTED
-                            </Link>
-                            <p className="text-gray-400 text-xs mt-6">
-                                Join 500+ professionals today.
-                            </p>
-                        </div>
-                    </div>
+                {/* Right: Highlights */}
+                <div>
+                    <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span
+                            className="inline-block w-1 h-7 rounded-full"
+                            style={{ background: `linear-gradient(to bottom, ${product.color}, #fff)` }}
+                        />
+                        What You'll Get
+                    </h2>
+                    <ul className="space-y-4">
+                        {product.highlights.map((item, i) => (
+                            <li key={i} className="flex items-start gap-4">
+                                <div
+                                    className="mt-1 flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold"
+                                    style={{ background: product.color }}
+                                >
+                                    {i + 1}
+                                </div>
+                                <span className="text-white/70 text-base leading-relaxed">{item}</span>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
-            <Footer />
+
+            {/* Other Products */}
+            <div className="border-t border-white/10 px-6 md:px-16 py-16 max-w-6xl mx-auto">
+                <h2 className="text-xl font-bold text-white/50 uppercase tracking-widest mb-10">
+                    Explore Other Programs
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    {PRODUCTS.filter((p) => p.id !== product.id).map((p) => (
+                        <div
+                            key={p.id}
+                            onClick={() => navigate(`/products/${p.id}`)}
+                            className="group relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer border border-white/10 hover:border-white/30 transition-all duration-300 hover:scale-[1.02]"
+                        >
+                            <img
+                                src={p.image}
+                                alt={p.title}
+                                className="absolute inset-0 w-full h-full object-cover"
+                                style={{ filter: "brightness(0.4)" }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                            <div className="absolute bottom-0 left-0 p-5 z-10">
+                                <h3 className="text-white font-bold text-lg">{p.title}</h3>
+                                <p className="text-white/50 text-xs mt-1 line-clamp-2">{p.subtitle}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }
-
-export default ProductDetail;

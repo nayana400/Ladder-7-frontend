@@ -10,7 +10,7 @@ const CareersPage = () => {
     }, []);
 
     return (
-        <div className="bg-[#1a365d] min-h-screen">
+        <div className="bg-[oklch(0.93_0.01_0)] min-h-screen">
             <Navbar />
             <Careers />
             <Footer />

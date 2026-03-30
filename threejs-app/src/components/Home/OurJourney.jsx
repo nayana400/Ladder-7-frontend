@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const JOURNEY_STEPS = [
@@ -115,7 +116,7 @@ function OurJourney() {
                 onMouseEnter={() => setHoveredStep(index)}
                 onMouseLeave={() => setHoveredStep(null)}
                 className={`relative flex items-center justify-center p-1.5 md:p-2 rounded-full min-w-[80px] md:min-w-[110px] cursor-pointer transition-all duration-300 border-2 ${isActive || isHovered
-                    ? "scale-105 border-white shadow-lg"
+                    ? "scale-105 border-black shadow-lg"
                     : "border-transparent"
                     }`}
                 style={{
@@ -123,7 +124,7 @@ function OurJourney() {
                     boxShadow: (isActive || isHovered) ? `0 0 20px ${step.color}AA` : undefined
                 }}
             >
-                <span className="text-[7px] md:text-[10px] font-bold uppercase tracking-wider text-center text-white">
+                <span className="text-[7px] md:text-[10px] font-bold uppercase tracking-wider text-center text-black">
                     {step.title}
                 </span>
             </button>
@@ -137,14 +138,14 @@ function OurJourney() {
             down: "M12 5v14M5 12l7 7 7-7",
         };
         return (
-            <svg className={`w-5 h-5 text-white/60 ${className}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+            <svg className={`w-5 h-5 text-black/40 ${className}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d={directions[direction]} />
             </svg>
         );
     };
 
     return (
-        <section className="bg-black text-white py-20 px-6 overflow-hidden min-h-[700px]">
+        <section className="bg-white text-black py-20 px-6 overflow-hidden min-h-[700px]">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
@@ -152,8 +153,8 @@ function OurJourney() {
                     <div className="flex flex-col gap-10 lg:pr-8">
                         {/* Header Section */}
                         <div className="text-center lg:text-left space-y-4">
-                            <h1 className="text-white font-bold text-lg md:text-4xl">Our Journey</h1>
-                            <p className="text-sm md:text-base">
+                            <h1 className="text-black font-bold text-lg md:text-4xl">Our Journey</h1>
+                            <p className="text-sm md:text-base text-gray-800">
                                 Explore L7 framework is a strategic model that focuses on seven essential elements to drive sustainable success
                             </p>
                         </div>
@@ -191,7 +192,7 @@ function OurJourney() {
 
                             {/* Background pattern */}
                             <div className="absolute inset-0 opacity-10 pointer-events-none">
-                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
+                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-black/20 via-transparent to-transparent" />
                             </div>
                         </div>
                     </div>
@@ -199,7 +200,7 @@ function OurJourney() {
                     {/* Right Column: Interaction Circle */}
                     <div className="relative flex items-center justify-center lg:order-2 h-[450px] md:h-[550px]">
                         {/* Dotted Circular Path */}
-                        <div className="absolute w-[280px] h-[280px] md:w-[450px] md:h-[450px] rounded-full border border-dashed border-white/10 pointer-events-none" />
+                        <div className="absolute w-[280px] h-[280px] md:w-[450px] md:h-[450px] rounded-full border border-dashed border-black/30 pointer-events-none" />
 
                         {/* Icons Container */}
                         <motion.div
@@ -230,14 +231,14 @@ function OurJourney() {
                                             whileHover={{ scale: 1.1 }}
                                             animate={{
                                                 scale: isActive ? 1.2 : (isHovered ? 1.1 : 1),
-                                                borderColor: (isActive || isHovered) ? "white" : "transparent"
+                                                borderColor: (isActive || isHovered) ? "black" : "transparent"
                                             }}
                                             className={`w-10 h-10 md:w-16 md:h-16 rounded-2xl flex items-center justify-center shadow-2xl border-2 transition-all duration-500 cursor-pointer group`}
                                             style={{ backgroundColor: step.color }}
                                         >
                                             <motion.div
                                                 animate={{ scale: isActive ? 1.3 : 1 }}
-                                                className="text-white transition-all duration-300"
+                                                className="text-black transition-all duration-300"
                                             >
                                                 {step.icon}
                                             </motion.div>
@@ -259,18 +260,24 @@ function OurJourney() {
                                         transition={{ duration: 0.5 }}
                                         className="pointer-events-auto"
                                     >
-                                        <h3 className="text-xl md:text-4xl font-black mb-2 md:mb-4 uppercase tracking-tighter drop-shadow-2xl"
+                                        <h3 className="text-xl md:text-4xl font-black mb-2 md:mb-4 uppercase tracking-tighter drop-shadow-lg"
                                             style={{ color: JOURNEY_STEPS[activeStep].color }}
                                         >
                                             {JOURNEY_STEPS[activeStep].title}
                                         </h3>
-                                        <div className="space-y-2">
-                                            <p className="text-white text-[11px] md:text-sm font-bold leading-relaxed">
-                                                {JOURNEY_STEPS[activeStep].description}
+                                        <div className="space-y-4">
+                                            <p className="text-black text-[11px] md:text-sm font-bold leading-relaxed max-w-[300px] mx-auto">
+                                                {JOURNEY_STEPS[activeStep].description} {JOURNEY_STEPS[activeStep].extraDetails}
                                             </p>
-                                            <p className="text-white/60 text-[10px] md:text-xs leading-relaxed max-w-[300px] mx-auto">
-                                                {JOURNEY_STEPS[activeStep].extraDetails}
-                                            </p>
+                                            
+                                            <Link 
+                                                to="/about" 
+                                                className="inline-flex items-center gap-2 text-[10px] md:text-xs font-bold transition-all hover:gap-3"
+                                                style={{ color: JOURNEY_STEPS[activeStep].color }}
+                                            >
+                                                Learn More
+                                                <span>→</span>
+                                            </Link>
                                         </div>
                                     </motion.div>
                                 </AnimatePresence>

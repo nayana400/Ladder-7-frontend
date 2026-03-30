@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from "react";
-import BackgroundParticles from "./BackgroundParticles";
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import BackgroundParticles from './BackgroundParticles';
 
 const SLIDES = [
   {
@@ -31,99 +32,90 @@ const SLIDES = [
 function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const autoPlayRef = useRef();
+
+  const handleNext = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
+  }, []);
 
   useEffect(() => {
-    if (!isPaused) {
-      autoPlayRef.current = setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
-      }, 5000);
-    }
-    return () => clearInterval(autoPlayRef.current);
-  }, [isPaused]);
-
-  const handlePrev = () => {
-    setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
-    setIsPaused(true);
-  };
-
-  const handleNext = () => {
-    setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
-    setIsPaused(true);
-  };
+    if (isPaused) return;
+    const timer = setInterval(handleNext, 6000);
+    return () => clearInterval(timer);
+  }, [handleNext, isPaused]);
 
   return (
-    <section className="h-[90vh] bg-[#000000] text-white flex flex-col justify-center px-6 md:px-16 relative overflow-hidden pt-20">
+    <section className="h-[90vh] bg-[oklch(0.97_0_0)] text-gray-900 flex flex-col justify-center px-6 md:px-16 relative overflow-hidden pt-20">
       {/* Three.js Background Layer */}
       <BackgroundParticles />
 
-      <div className="max-w-7xl w-full mx-auto relative h-full flex flex-col justify-center z-10">
-
+      <div className="max-w-7xl mx-auto w-full relative z-10">
         {/* Slider Container */}
         <div className="relative overflow-hidden w-full h-[60vh] md:h-[50vh]">
           {SLIDES.map((slide, index) => {
-            // Logic for a continuous "move left" feel
-            // The active slide is at 0. The next one is at 100%. The previous one is at -100%.
             const isActive = index === currentSlide;
-            const isPrev = index === (currentSlide - 1 + SLIDES.length) % SLIDES.length;
-
-            let positionClass = "translate-x-full opacity-0 pointer-events-none";
-            if (isActive) {
-              positionClass = "translate-x-0 opacity-100 pointer-events-auto";
-            } else if (isPrev) {
-              positionClass = "-translate-x-full opacity-0 pointer-events-none";
-            }
 
             return (
-              <div
+              <motion.div
                 key={slide.id}
-                className={`absolute inset-0 transition-all duration-[1200ms] ease-in-out grid grid-cols-1 md:grid-cols-2 gap-12 items-center ${positionClass}`}
+                initial={false}
+                animate={{
+                  x: isActive ? "0%" : index > currentSlide ? "100%" : "-100%",
+                  opacity: isActive ? 1 : 0,
+                  scale: isActive ? 1 : 0.95
+                }}
+                transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+                className="absolute inset-0 grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+                style={{ pointerEvents: isActive ? 'auto' : 'none' }}
               >
                 {/* Left Content */}
                 <div className="z-10">
-                  <h2 className="text-5xl md:text-7xl mb-8 leading-[1.1] tracking-tight">
+                  <h2 className="text-4xl md:text-6xl mb-8 leading-[1.1] tracking-tight font-bold">
                     <span className="whitespace-nowrap">
-                      <span className="text-purple-400">{slide.titleTop.charAt(0)}</span>
+                      <span className="text-blue-600">{slide.titleTop.charAt(0)}</span>
                       {slide.titleTop.slice(1)}
                     </span>
-                    <span className="block text-2xl md:text-4xl opacity-90 mt-2 whitespace-nowrap">{slide.titleMid}</span>
-                    {slide.titleBot}
+                    <span className="block text-xl md:text-3xl text-gray-600 mt-2 whitespace-nowrap">{slide.titleMid}</span>
+                    <span className="text-gray-900">{slide.titleBot}</span>
                   </h2>
                 </div>
 
                 {/* Right Content */}
                 <div className="z-10 flex flex-col justify-center items-start md:pl-24">
-                  <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mb-6"></div>
-                  <p className="text-gray-300 mb-8 max-w-md text-base font-semibold leading-relaxed">
+                  <div className="w-16 h-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 mb-6 rounded-full"></div>
+                  <p className="text-gray-600 mb-8 max-w-md text-base font-semibold leading-relaxed">
                     {slide.description}
                   </p>
-                  <a href="#" className="flex items-center text-purple-400 hover:text-purple-300 transition text-2xl font-semibold group cursor-pointer">
+                  <a href="#" className="flex items-center text-blue-600 hover:text-blue-800 transition text-2xl font-bold group cursor-pointer">
                     {slide.ctaText}
-                    <span className="ml-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded px-2 py-1 text-sm group-hover:scale-110 transition-transform duration-300">
-                      &gt;
+                    <span className="ml-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg px-3 py-1 text-sm group-hover:scale-110 transition-transform duration-300 shadow-md">
+                      →
                     </span>
                   </a>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
         {/* Controls: Dots and Play/Pause Centered at Bottom */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-6 z-20 bg-black/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/10">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-6 z-20 bg-white/50 backdrop-blur-md px-6 py-3 rounded-full border border-gray-200 shadow-sm">
           {/* Left Arrow */}
           <button
             onClick={handlePrev}
-            className="w-8 h-8 border border-white/20 rounded-full flex items-center justify-center hover:bg-white/10 transition group"
+            className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center hover:bg-white/80 transition group text-gray-700 hover:text-blue-600"
             aria-label="Previous Slide"
           >
-            <svg className="w-4 h-4 text-white/70 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg className="w-4 h-4 transition-transform group-active:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
 
           {/* Dots */}
-          <div className="flex gap-3">
+          <div className="flex gap-3 items-center">
             {SLIDES.map((_, index) => (
               <button
                 key={index}
@@ -132,8 +124,8 @@ function Hero() {
                   setIsPaused(true);
                 }}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${currentSlide === index
-                  ? "bg-purple-600 scale-125 shadow-[0_0_8px_rgba(168,85,247,0.5)]"
-                  : "bg-gray-600 hover:bg-white"
+                  ? "bg-blue-600 scale-125 shadow-lg"
+                  : "bg-gray-300 hover:bg-gray-500"
                   }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
@@ -143,24 +135,24 @@ function Hero() {
           {/* Play/Pause */}
           <button
             onClick={() => setIsPaused(!isPaused)}
-            className="w-8 h-8 border border-white/20 rounded-full flex items-center justify-center hover:bg-white/10 transition"
+            className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center hover:bg-white/80 transition text-gray-700 hover:text-blue-600"
             aria-label={isPaused ? "Play" : "Pause"}
           >
             {isPaused ? (
-              <svg className="w-3 h-3 fill-white translate-x-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+              <svg className="w-3 h-3 fill-current translate-x-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
             ) : (
-              <svg className="w-3 h-3 fill-white" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
+              <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
             )}
           </button>
 
           {/* Right Arrow */}
           <button
             onClick={handleNext}
-            className="w-8 h-8 border border-white/20 rounded-full flex items-center justify-center hover:bg-white/10 transition group"
+            className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center hover:bg-white/80 transition group text-gray-700 hover:text-blue-600"
             aria-label="Next Slide"
           >
-            <svg className="w-4 h-4 text-white/70 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg className="w-4 h-4 transition-transform group-active:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
         </div>

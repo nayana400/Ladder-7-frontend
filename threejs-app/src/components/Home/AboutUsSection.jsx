@@ -7,11 +7,11 @@ const AboutUsSection = () => {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <section className="bg-[#000000] py-20 px-16">
+    <section className="bg-[oklch(0.97_0_0)] py-20 px-16">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
         {/* Left Column — Image */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -27,7 +27,7 @@ const AboutUsSection = () => {
 
         {/* Right Column — Text with Character Reveal */}
         <div className="flex flex-col justify-center">
-          <motion.h2 
+          <motion.h2
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -35,7 +35,7 @@ const AboutUsSection = () => {
               visible: { transition: { staggerChildren: 0.05 } },
               hidden: {},
             }}
-            className="text-xl md:text-3xl font-bold text-white mb-6 leading-tight bg-gradient-to-br from-white to-blue-300 bg-clip-text text-transparent"
+            className="text-xl md:text-3xl font-bold mb-6 leading-tight bg-gradient-to-br from-[#003399] to-blue-600 bg-clip-text text-transparent"
           >
             {"About Us".split("").map((char, index) => (
               <motion.span
@@ -57,7 +57,7 @@ const AboutUsSection = () => {
             onMouseLeave={() => setHovered(false)}
           >
             {/* Always visible first part with character reveal */}
-            <motion.p 
+            <motion.p
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
@@ -65,7 +65,7 @@ const AboutUsSection = () => {
                 visible: { transition: { staggerChildren: 0.01 } },
                 hidden: {},
               }}
-              className="text-base text-white leading-relaxed max-w-lg"
+              className="text-base text-gray-800 leading-relaxed max-w-lg"
             >
               {"At Ladder7 Next Step Solutions, we specialize in providing cutting-edge technology solutions to tackle complex industry challenges. Our dedicated R&D team continuously identifies business challenges and develops".split("").map((char, index) => (
                 <motion.span
@@ -90,7 +90,7 @@ const AboutUsSection = () => {
                 transition: "max-height 0.5s ease, opacity 0.4s ease",
               }}
             >
-              <p className="text-base text-white leading-relaxed max-w-lg">
+              <p className="text-base text-gray-800 leading-relaxed max-w-lg">
                 innovative solution prototypes, focusing on technology, services, products,
                 and environmental sustainability. With a team of seasoned professionals,
                 we offer a range of services, including dynamic website creation, digital
@@ -105,10 +105,10 @@ const AboutUsSection = () => {
           {/* Know More — sits right below, moves down when text expands */}
           <Link
             to="#about"
-            className="inline-flex items-center gap-2 w-fit mt-6 px-6 py-3 rounded-full border border-blue-400 text-white text-sm font-semibold hover:bg-blue-500 hover:border-blue-500 transition-all duration-300"
+            className="inline-flex items-center gap-2 w-fit mt-6 px-6 py-3 rounded-full border border-[#003399] text-[#003399] text-sm font-semibold hover:bg-[#003399] hover:text-white transition-all duration-300"
           >
             Know More
-            </Link>
+          </Link>
         </div>
 
 

@@ -34,9 +34,9 @@ function Particles() {
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
     for (let i = 0; i < n; i++) {
-        const x = positions[i * 3 + 0];
-        const z = positions[i * 3 + 2];
-        points.current.geometry.attributes.position.array[i * 3 + 1] = Math.sin(x + time) + Math.cos(z + time);
+      const x = positions[i * 3 + 0];
+      const z = positions[i * 3 + 2];
+      points.current.geometry.attributes.position.array[i * 3 + 1] = Math.sin(x + time) + Math.cos(z + time);
     }
     points.current.geometry.attributes.position.needsUpdate = true;
     points.current.rotation.y = time * 0.05;
@@ -57,12 +57,12 @@ function Particles() {
           itemSize={3}
         />
       </bufferGeometry>
-      <pointsMaterial 
-        size={0.05} 
-        color="#818cf8" 
-        transparent 
-        opacity={0.8} 
-        map={particleTexture} 
+      <pointsMaterial
+        size={0.05}
+        color="#818cf8"
+        transparent
+        opacity={0.8}
+        map={particleTexture}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
         sizeAttenuation={true}

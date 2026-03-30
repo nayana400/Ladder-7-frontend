@@ -12,15 +12,15 @@ const ServiceCard = ({ service, index }) => {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
-        className="w-full md:w-[50%] h-[250px] md:h-[300px] rounded-2xl overflow-hidden shadow-xl relative z-0"
+        className="w-full md:w-[50%] h-[250px] md:h-[300px] rounded-2xl overflow-hidden shadow-2xl relative z-0 border border-gray-100"
       >
         <img
           src={service.image}
           alt={service.category}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-700"
         />
-        {/* Overlay to ensure text readability if needed */}
-        <div className="absolute inset-0 bg-black/20" />
+        {/* Subtle overlay */}
+        <div className="absolute inset-0 bg-gray-900/5 hover:bg-transparent transition-colors duration-500" />
       </motion.div>
 
       {/* Content Card */}
@@ -29,11 +29,11 @@ const ServiceCard = ({ service, index }) => {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className={`w-[90%] md:w-[45%] h-[200px] md:h-[240px] p-4 md:p-6 rounded-2xl bg-gradient-to-br from-[#1d1b4b] to-[#0a051e] border border-white/10 shadow-xl relative z-10 flex flex-col justify-center
-          ${isEven ? "md:-ml-16" : "md:-mr-16"} mt-[-30px] md:mt-0`}
+        className={`w-[90%] md:w-[45%] h-fit min-h-[220px] p-6 md:p-10 rounded-3xl bg-white border border-gray-100 border-b-[8px] border-b-[#003399] shadow-[0_40px_80px_-15px_rgba(0,0,0,0.08)] relative z-10 flex flex-col justify-center
+          ${isEven ? "md:-ml-20" : "md:-mr-20"} mt-[-40px] md:mt-0`}
       >
 
-        <h3 className="text-white text-[20px] md:text-[24px] font-bold mb-3">{service.category}</h3>
+        <h3 className="text-gray-900 text-[24px] md:text-[28px] font-bold mb-5 tracking-tight">{service.category}</h3>
 
 
         <ul className="list-none space-y-2">
@@ -41,9 +41,9 @@ const ServiceCard = ({ service, index }) => {
           {service.items.map((item, i) => (
             <li
               key={`service-item-${i}`}
-              className="text-gray-300 text-[14px] md:text-[16px] flex items-start gap-3"
+              className="text-gray-600 font-medium text-[15px] md:text-[17px] flex items-start gap-4"
             >
-              <span className="text-blue-500 mt-1">✦</span>
+              <span className="text-[#003399] mt-1.5 text-xs">✦</span>
               {item}
             </li>
           ))}

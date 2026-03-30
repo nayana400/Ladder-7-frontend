@@ -8,27 +8,27 @@ const Advisor = () => {
     ];
 
     return (
-        <section className="bg-[#062861] text-white py-12 px-6 md:px-16 overflow-hidden">
+        <section className="bg-white text-gray-900 py-12 px-6 md:px-16 overflow-hidden">
             <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
                 {/* Text Content */}
                 <div className="flex-1 text-left">
-                    <h2 className="text-3xl md:text-5xl font-bold mb-1 leading-tight">
+                    <h2 className="text-3xl md:text-5xl font-bold mb-1 leading-tight text-gray-900">
                         Talk to our Advisor
                     </h2>
-                    <p className="text-white text-lg mb-2 uppercase tracking-widest">
+                    <p className="text-gray-600 text-lg mb-2 uppercase tracking-widest font-semibold">
                         AND GET
                     </p>
 
                     <div className="flex flex-nowrap gap-6 mb-4 overflow-x-auto no-scrollbar">
                         {features.map((feature, idx) => (
                             <div key={idx} className="flex items-center gap-2 whitespace-nowrap">
-                                <span className="text-yellow-400 text-lg font-bold">✓</span>
-                                <span className="text-base font-bold">{feature}</span>
+                                <span className="text-blue-600 text-lg font-bold">✓</span>
+                                <span className="text-base font-bold text-gray-800">{feature}</span>
                             </div>
                         ))}
                     </div>
 
-                    <a href="" className="inline-block mt-2 bg-[#c53030] text-white py-4 px-10 rounded text-base shadow-xl hover:bg-red-700 transition-colors">
+                    <a href="" className="inline-block mt-2 bg-[#003399] text-white py-4 px-10 rounded text-base font-bold shadow-xl hover:bg-blue-800 transition-colors">
                         Request a call
                     </a>
                 </div>
